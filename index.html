@@ -6,6 +6,9 @@
 <title>Berlin Psychedelic Science Association</title>
 <meta name="description" content="Die BPSA bringt Studierende und Interessierte zusammen, um über Psychedelika, Bewusstsein und Wissenschaft nachzudenken. Nächster Talk: 04.11.2026 mit Dr. med. Tomislav Majić (Charité).">
 <link rel="canonical" href="https://bpsa.psng.info/">
+<link rel="alternate" hreflang="de" href="https://bpsa.psng.info/">
+<link rel="alternate" hreflang="en" href="https://bpsa.psng.info/en/">
+<link rel="alternate" hreflang="x-default" href="https://bpsa.psng.info/">
 <meta name="theme-color" content="#071030">
 <!-- Die Seite wird vor allem als Link geteilt – in WhatsApp, auf Instagram.
      Ohne diese Angaben steht dort eine nackte URL. -->
@@ -100,8 +103,16 @@
   .bar .btn{padding:.55em 1.1em;font-size:15px}
   @media (max-width:820px){
     .bar nav{display:none}
-    .bar .btn{margin-left:auto}
+    .bar .lang{margin-left:auto}
   }
+  /* Sprachwechsel: klein, aber immer sichtbar – auch wenn die Leiste am
+     Telefon die übrigen Links ausblendet. */
+  .lang{
+    display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;
+    color:var(--muted);text-decoration:none;font-size:14px;font-weight:700;letter-spacing:.08em;
+    border-radius:999px;transition:color .2s,background .2s;
+  }
+  .lang:hover{color:var(--white);background:rgba(255,255,255,.08)}
 
   /* --- Knöpfe --- */
   .btn{
@@ -446,6 +457,7 @@
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
     </nav>
+    <a class="lang" href="en/" hreflang="en" lang="en" aria-label="English version">EN</a>
     <a class="btn" href="https://chat.whatsapp.com/FjeicaFArV1JHYoMaVckRW?mode=gi_t" target="_blank" rel="noopener" data-goatcounter-click="whatsapp-leiste">WhatsApp</a>
   </div>
 </header>
@@ -713,7 +725,7 @@
       <img src="psng-logo.webp" width="96" height="96" loading="lazy" decoding="async" alt="PSNG Logo">
       <p>Teil des <a href="https://psng.info" target="_blank" rel="noopener">Psychedelic Student Network Germany</a></p>
     </div>
-    <p><a href="mailto:bpsa@psng.info">bpsa@psng.info</a> · <a href="https://instagram.com/bpsa.berlin" target="_blank" rel="noopener">Instagram</a> · <a href="#kontakt">Kontakt</a></p>
+    <p><a href="mailto:bpsa@psng.info">bpsa@psng.info</a> · <a href="https://instagram.com/bpsa.berlin" target="_blank" rel="noopener">Instagram</a> · <a href="#kontakt">Kontakt</a> · <a href="en/" hreflang="en" lang="en">English</a></p>
   </div>
 </footer>
 
