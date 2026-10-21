@@ -283,12 +283,46 @@
     });
   })();
 
-  // Sprachwechsel bleibt im selben Abschnitt: Beide Seiten haben dieselben IDs.
-  document.querySelectorAll("a[hreflang]").forEach(function (link) {
-    link.addEventListener("click", function () {
-      if (location.hash) link.href = link.href.split("#")[0] + location.hash;
+  // Sprachwechsel bleibt, wo man gerade liest – nicht beim zuletzt angeklickten
+  // Abschnitt. Gemerkt wird das Element mit ID ganz oben im Bild und wie weit man
+  // darin ist; beide Seiten haben dieselben IDs, also findet die andere es wieder.
+  (function () {
+    var KEY = "bpsa-lang-pos";
+    var anchors = function () {
+      return document.querySelectorAll("main [id]:not(input):not(select):not(textarea), .hero");
+    };
+    var top = function (el) { return el.getBoundingClientRect().top + window.scrollY; };
+
+    document.querySelectorAll("a[hreflang]").forEach(function (link) {
+      link.addEventListener("click", function () {
+        var line = window.scrollY + 90, best = null;
+        anchors().forEach(function (el) {
+          // Verborgenes (etwa in zugeklappten Talks) hat keine Lage und zählt nicht.
+          if (!el.getClientRects().length) return;
+          if (top(el) <= line && (!best || top(el) >= top(best))) best = el;
+        });
+        try {
+          sessionStorage.setItem(KEY, JSON.stringify({
+            id: best && best.id, off: best ? window.scrollY - top(best) : 0, y: window.scrollY }));
+        } catch (e) {}
+        link.href = link.href.split("#")[0];
+      });
     });
-  });
+
+    var saved;
+    try { saved = JSON.parse(sessionStorage.getItem(KEY)); sessionStorage.removeItem(KEY); } catch (e) {}
+    if (!saved || location.hash) return;
+    function restore() {
+      var el = saved.id && document.getElementById(saved.id);
+      if (el && !el.getClientRects().length) el = null;
+      var y = el ? top(el) + saved.off : saved.y;
+      if (y == null) return;
+      window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
+    }
+    restore();
+    // Die Schriften können die Höhen noch verschieben: danach einmal nachziehen.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(restore);
+  })();
 
   // Kontaktformular: abschicken ohne die Seite zu verlassen. Ohne JavaScript
   // geht das Formular ganz normal an Formspree und prüft der Browser selbst.
