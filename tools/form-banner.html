@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Kopfbild für das Google-Formular "BPSA: Mitmachen im Team".
+     Google Forms zeigt es im Format 4:1 (1600 × 400). Schlicht: Logo links,
+     daneben der Name im Verlauf des Logos.
+     Neu erzeugen: tools/form-banner.sh -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face{font-family:"Montserrat";font-weight:100 900;src:url("../fonts/montserrat-variable.woff2") format("woff2")}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1600px;height:400px;overflow:hidden}
+  body{
+    background:#0a0f2e;-webkit-font-smoothing:antialiased;
+    display:flex;align-items:center;justify-content:center;gap:40px;
+  }
+  /* Das Gehirn aus dem Logo, freigestellt. */
+  .brain{
+    flex:none;width:250px;height:218px;
+    background:url("../BPSA-Logo-Background-Removed.png") no-repeat;
+    background-size:464px 464px;background-position:-106px -110px;
+  }
+  /* Der Schriftzug im Verlauf des Logos: Cyan über Blauviolett nach Magenta. */
+  h1{
+    font-family:"Montserrat",sans-serif;font-weight:700;font-size:78px;line-height:1.08;letter-spacing:-.01em;
+    background:linear-gradient(90deg,#4fdaee 0%,#6f86f2 45%,#c23ff0 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em;
+  }
+</style>
+</head>
+<body>
+  <div class="brain" role="img" aria-label="BPSA Logo"></div>
+  <h1>Berlin Psychedelic<br>Science Association</h1>
+</body>
+</html>

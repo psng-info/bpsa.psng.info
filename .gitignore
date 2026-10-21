@@ -1,3 +1,7 @@
 .DS_Store
 .claude/
 Miguel-photos/
+
+# Impeccable: Zwischenstände, nicht für die Seite
+.impeccable/hook.cache.json
+.impeccable/live/
