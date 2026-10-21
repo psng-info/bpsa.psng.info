@@ -24,8 +24,8 @@
     --panel:rgba(255,255,255,.06);
     --edge:rgba(255,255,255,.14);
     /* Eine Farbe je Hochschule. Cyan und Violett kommen von der Startseite,
-       Mint und Bernstein sind dazugekommen, weil vier Träger vier Farben
-       brauchen – alle drei sind auf dem dunklen Grund gut lesbar. */
+       Bernstein ist dazugekommen, weil drei Träger drei Farben brauchen
+       – alle drei sind auf dem dunklen Grund gut lesbar. */
     --c-charite:#47cddb;
     --c-hu:#b07fe0;
     --c-msb:#ffc861;
@@ -50,6 +50,23 @@
     display:flex;flex-direction:column;gap:clamp(24px,4vw,40px);
   }
   img{max-width:100%}
+  /* Eine Schleife über die Ecke: sagt, dass die Seite ein Entwurf ist,
+     und nimmt dem Inhalt keinen Platz weg. */
+  .ribbon{position:fixed;top:0;right:0;width:168px;height:168px;overflow:hidden;pointer-events:none;z-index:9}
+  .ribbon span{
+    position:absolute;top:56px;right:-32px;width:200px;transform:rotate(45deg);
+    background:var(--purple);border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);
+    box-shadow:0 2px 10px rgba(7,16,48,.45);
+    text-align:center;padding:6px 0;
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  }
+  /* Auf dem Telefon rückt die Schleife enger in die Ecke, und die Seite
+     fängt etwas tiefer an, damit sie nichts überdeckt. */
+  @media (max-width:560px){
+    .ribbon{width:116px;height:116px}
+    .ribbon span{top:36px;right:-30px;width:152px;font-size:9px;letter-spacing:.04em;padding:5px 0}
+    .page{padding-top:52px}
+  }
 
   /* --- Kopf --- */
   header{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -207,6 +224,7 @@
 </style>
 </head>
 <body>
+<div class="ribbon" aria-hidden="true"><span>Preliminary draft</span></div>
 <div class="page">
 
   <header>
