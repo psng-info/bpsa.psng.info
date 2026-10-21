@@ -38,7 +38,7 @@
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     min-height:100dvh;
   }
-  main{display:contents}
+  main{display:flex;flex-direction:column;gap:inherit}
   .page{
     max-width:1180px;margin-inline:auto;
     padding:clamp(20px,4vw,40px) clamp(16px,4vw,32px) clamp(28px,5vw,44px);
@@ -165,7 +165,6 @@
   }
   .who{font-size:15px;opacity:.8}
   .talk .video{max-width:900px;width:100%}
-  .recap{max-width:78ch}
   .recap a{color:var(--cyan)}
   .talk-body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(18px,3vw,34px);align-items:start}
   .talk-body .facts li b{color:var(--cyan)}
@@ -202,7 +201,7 @@
   .facade:hover .play::before{border-left-color:var(--navy)}
   .facade:focus-visible{outline:3px solid var(--cyan);outline-offset:-3px}
 
-  .recap{display:flex;flex-direction:column;gap:12px}
+  .recap{display:flex;flex-direction:column;gap:12px;max-width:78ch}
   .recap p{font-size:15px;line-height:1.55;opacity:.88}
   details summary{
     cursor:pointer;color:var(--cyan);font-size:clamp(13px,1.5vw,14px);font-weight:700;
@@ -214,8 +213,6 @@
   details summary:hover{text-decoration:underline}
   details .abstract{padding-top:6px}
   .bio-line b{color:var(--cyan)}
-
-  .shot{padding:0;border:0;background:none;cursor:zoom-in;display:block;border-radius:12px}
 
   .lightbox{
     border:0;padding:0;background:none;margin:auto;max-width:96vw;max-height:96vh;
@@ -257,10 +254,10 @@
   }
   /* Ein großes Bild vorn, vier kleine daneben: das Foto, das den Abend
      erzählt, soll nicht gleich groß sein wie die Folie von nahem. */
-  .shots.lead{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .shots.lead li:first-child{grid-column:span 2;grid-row:span 2}
-  .shots.lead li:first-child .shot,.shots.lead li:first-child img{height:100%}
-  .shots.lead li:first-child img{aspect-ratio:auto}
+  .shots.feature{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .shots.feature li:first-child{grid-column:span 2;grid-row:span 2}
+  .shots.feature li:first-child .shot,.shots.feature li:first-child img{height:100%}
+  .shots.feature li:first-child img{aspect-ratio:auto}
   .shots .shot:hover img{transform:scale(1.015);box-shadow:0 14px 34px rgba(0,0,0,.5)}
   .poster .shot img{transition:transform .25s}
   .poster .shot:hover img{transform:scale(1.01)}
@@ -328,10 +325,10 @@
     .talk-body{grid-template-columns:minmax(0,1fr)}
     .talk-body .poster{width:100%;max-width:360px;margin-inline:auto}
     .join{max-width:360px;margin-inline:auto}
-    .shots,.shots.lead{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .shots:not(.lead) li:last-child:nth-child(odd){grid-column:span 2}
-    .shots.lead li:first-child{grid-row:auto}
-    .shots.lead li:first-child img{aspect-ratio:4/3}
+    .shots,.shots.feature{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .shots:not(.feature) li:last-child:nth-child(odd){grid-column:span 2}
+    .shots.feature li:first-child{grid-row:auto}
+    .shots.feature li:first-child img{aspect-ratio:4/3}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none !important;scroll-behavior:auto !important}
@@ -402,8 +399,7 @@
                   data-url="https://bpsa.psng.info/">Zum Kalender hinzufügen</button>
           <div class="cal-menu" role="menu" aria-label="Termin in den Kalender übernehmen" hidden>
             <a role="menuitem" data-cal="google" href="#" target="_blank" rel="noopener">Google Kalender</a>
-            <button role="menuitem" data-cal="ics" type="button">Apple Kalender / iCloud</button>
-            <button role="menuitem" data-cal="ics" type="button">ICS-Datei laden</button>
+            <button role="menuitem" data-cal="ics" type="button">Apple / Outlook (.ics)</button>
           </div>
         </div>
       </div>
@@ -466,7 +462,7 @@
         <p>Rund 65 Leute waren dabei, als einer der führenden Köpfe der Psychedelika-Forschung in Berlin sprach. Es ging um Dekonstruktion und Rekonstruktion in psychedelischen Erfahrungen: um unmittelbare und längere Zyklen davon und um die Frage, welche Rolle unsere eigene <span lang="en">Agency</span> dabei spielt.</p>
       </div>
 
-      <ul class="shots lead" data-gallery="abend-timmermann">
+      <ul class="shots feature" data-gallery="abend-timmermann">
           <li><button class="shot" type="button" aria-label="Foto 1 vergrößern"><img src="timmermann/photo-01.jpg" width="1000" height="759" loading="lazy" decoding="async" alt="Voller Hörsaal beim Talk von Dr. Chris Timmermann am 19.10.2026 (1 von 5)"></button></li>
           <li><button class="shot" type="button" aria-label="Foto 2 vergrößern"><img src="timmermann/photo-02.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Dr. Chris Timmermann am 19.10.2026 (2 von 5)"></button></li>
           <li><button class="shot" type="button" aria-label="Foto 3 vergrößern"><img src="timmermann/photo-03.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Dr. Chris Timmermann am 19.10.2026 (3 von 5)"></button></li>
@@ -588,7 +584,7 @@
     facade.addEventListener("click", function () {
       var frame = document.createElement("iframe");
       frame.src = facade.dataset.embed;
-      frame.title = "Aufzeichnung: Logos und Ekstase";
+      frame.title = facade.getAttribute("aria-label").replace(" abspielen", "");
       frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
       frame.allowFullscreen = true;
       facade.replaceWith(frame);
@@ -622,7 +618,7 @@
     }
 
     function escape(value) {
-      return value.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+      return value.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
     }
 
     // RFC 5545: höchstens 75 Oktette je Zeile, Fortsetzung mit einem Leerzeichen.
