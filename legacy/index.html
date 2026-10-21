@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Berlin Psychedelic Science Association</title>
+<meta name="description" content="Die BPSA bringt Studierende und Interessierte zusammen, um über Psychedelika, Bewusstsein und Wissenschaft nachzudenken. Nächster Talk: 04.11.2026 mit Dr. med. Tomislav Majić (Charité).">
+<meta name="theme-color" content="#071030">
+<!-- Die alte Startseite, aufgehoben zum Vergleich. Gesucht werden soll die neue. -->
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://bpsa.psng.info/">
+<link rel="icon" href="../bpsa-logo.webp" type="image/webp">
+<style>
+  :root{
+    --navy:#071030;
+    --cyan:#47cddb;
+    --purple:#8f49b9;
+    --white:#ffffff;
+    --panel:rgba(255,255,255,.06);
+    --edge:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+  body{
+    background:
+      radial-gradient(1000px 700px at 12% 12%, rgba(71,205,219,.38), transparent 60%),
+      radial-gradient(900px 700px at 88% 20%, rgba(143,73,185,.42), transparent 62%),
+      radial-gradient(1100px 800px at 70% 100%, rgba(71,205,219,.24), transparent 60%),
+      linear-gradient(150deg, #0d1b47 0%, var(--navy) 45%, #10063a 100%);
+    background-attachment:fixed;
+    color:var(--white);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    min-height:100dvh;
+  }
+  main{display:flex;flex-direction:column;gap:inherit}
+  .page{
+    max-width:1180px;margin-inline:auto;
+    padding:clamp(20px,4vw,40px) clamp(16px,4vw,32px) clamp(28px,5vw,44px);
+    display:flex;flex-direction:column;gap:clamp(24px,4vw,40px);
+  }
+  img{max-width:100%}
+
+  /* --- Banner --- */
+  .banner{
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.35em .8em;
+    padding:.7em clamp(16px,4vw,32px);text-align:center;text-decoration:none;color:var(--white);
+    font-size:clamp(13px,1.6vw,15px);line-height:1.4;
+    background:linear-gradient(90deg, var(--purple), #5b3fb0 50%, #2a8fa0);
+    border-bottom:1px solid rgba(255,255,255,.2);
+  }
+  .banner b{color:var(--white)}
+  .banner span{opacity:.92}
+  .banner-cta{font-weight:700;border-bottom:1px solid rgba(255,255,255,.6);opacity:1 !important;transition:border-color .2s}
+  .banner:hover .banner-cta{border-bottom-color:var(--white)}
+  @media (max-width:600px){ .banner span:not(.banner-cta){display:none} }
+
+  /* --- Kopf --- */
+  header{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+  header img{height:clamp(52px,8vw,74px);width:auto;filter:drop-shadow(0 0 14px rgba(71,205,219,.5))}
+  h1{font-size:clamp(22px,3.2vw,30px);font-weight:700;line-height:1.25}
+  h1 span{color:var(--cyan)}
+  .lead{font-size:clamp(15px,2vw,17px);font-weight:700}
+  .lead em{font-style:normal;color:var(--purple);filter:brightness(1.45)}
+  header p.intro{font-size:15px;opacity:.85;max-width:80ch;line-height:1.5}
+
+  /* --- Bausteine --- */
+  .card{
+    border:1px solid var(--edge);border-radius:20px;
+    background:var(--panel);padding:clamp(18px,3vw,28px);
+  }
+  .card.upcoming{border-color:rgba(71,205,219,.35)}
+  .tag{
+    display:inline-block;align-self:flex-start;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    color:var(--cyan);border:1px solid rgba(71,205,219,.5);border-radius:999px;
+    padding:.35em 1em;background:rgba(71,205,219,.1);
+  }
+  .section-title{
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    font-weight:700;opacity:.65;border-bottom:1px solid var(--edge);padding-bottom:.6em;
+  }
+  .talk-title{font-size:clamp(17px,2.2vw,21px);font-weight:700;line-height:1.3}
+  .talk-title.lg{font-size:clamp(20px,2.6vw,26px)}
+  .talk-title small{display:block;font-size:.7em;font-weight:400;opacity:.75;margin-top:.45em;line-height:1.45}
+  .talk-title small a{color:var(--cyan)}
+  .card p{font-size:15px;opacity:.88;line-height:1.5}
+  .card p b{color:var(--white);opacity:1}
+
+  .poster img{
+    display:block;width:100%;height:auto;border-radius:14px;
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 18px 50px rgba(0,0,0,.55);
+  }
+
+  /* --- Nächster Talk --- */
+  .upcoming{
+    display:grid;gap:clamp(18px,3vw,34px);
+    grid-template-columns:minmax(0,300px) minmax(0,1fr) minmax(0,210px);
+    align-items:start;
+  }
+  .upcoming.no-poster{grid-template-columns:minmax(0,1fr) minmax(0,210px)}
+  .upcoming .section-title{grid-column:1/-1;margin-bottom:-6px}
+  .upcoming .info{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .upcoming .info a{color:var(--cyan)}
+  .facts{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .facts li{font-size:15px;line-height:1.45;padding-left:1.4em;position:relative;opacity:.92}
+  .facts li::before{content:"\00B7";position:absolute;left:.45em;color:var(--cyan);font-weight:700}
+  .facts li b{color:var(--cyan)}
+  .after{font-size:13px;opacity:.78}
+
+  .join{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .join h3{font-size:clamp(15px,1.8vw,16px);color:var(--cyan);font-weight:700}
+  .join img{width:100%;height:auto;max-width:190px;border-radius:16px;background:#fff;padding:9px;box-shadow:0 18px 45px rgba(0,0,0,.45)}
+  .links{display:flex;flex-direction:column;gap:10px;align-items:stretch;width:100%}
+  .btn{
+    display:inline-block;background:var(--purple);color:var(--white);text-decoration:none;text-align:center;
+    font-size:15px;font-weight:700;padding:.75em 1.2em;border-radius:999px;
+    box-shadow:0 10px 26px rgba(143,73,185,.5);
+    transition:background .2s,transform .2s,color .2s;
+  }
+  .btn:hover{background:var(--cyan);color:var(--navy);transform:translateY(-2px)}
+  .btn.alt{background:transparent;border:2px solid var(--cyan);color:var(--cyan);box-shadow:none}
+  .btn.alt:hover{background:var(--cyan);color:var(--navy)}
+
+  .cal{position:relative}
+  .cal-toggle{width:100%}
+  .cal-menu{
+    position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:20;
+    min-width:210px;display:flex;flex-direction:column;gap:2px;padding:6px;
+    border:1px solid rgba(71,205,219,.45);border-radius:14px;
+    background:rgba(7,16,48,.97);box-shadow:0 18px 45px rgba(0,0,0,.55);
+  }
+  .cal-menu[hidden]{display:none}
+  .cal-menu > *{
+    font:inherit;font-size:clamp(13px,1.5vw,14px);text-align:left;color:var(--white);
+    background:none;border:0;border-radius:9px;padding:9px 11px;cursor:pointer;text-decoration:none;
+  }
+  .cal-menu > *:hover,.cal-menu > *:focus-visible{background:rgba(71,205,219,.18);outline:none}
+
+  /* --- Vergangene Talks --- */
+  .past{display:flex;flex-direction:column;gap:clamp(14px,2.5vw,20px)}
+  .talk{display:flex;flex-direction:column;gap:14px}
+  /* Jeder Abend als eigene Fläche – untereinander verschwimmen die Talks sonst. */
+  .past .talk{
+    border:1px solid var(--edge);border-left:3px solid var(--cyan);border-radius:16px;
+    background:rgba(7,16,48,.35);padding:clamp(16px,2.6vw,24px);
+  }
+  .abstract{display:flex;flex-direction:column;gap:.75em;max-width:78ch}
+  .abstract p{font-size:15px;line-height:1.6;opacity:.85}
+  .abstract i{opacity:1}
+  .bio p{font-size:15px;line-height:1.55;opacity:.88}
+  .bio b{color:var(--cyan)}
+  .talk-head{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+  .talk-head.has-portrait{flex-direction:row;justify-content:space-between;align-items:center;gap:clamp(14px,3vw,28px)}
+  .talk-head-text{display:flex;flex-direction:column;gap:8px;align-items:flex-start;min-width:0}
+  .portrait{
+    flex:none;width:clamp(72px,11vw,124px);height:auto;aspect-ratio:1;object-fit:cover;border-radius:50%;
+    border:3px solid var(--cyan);box-shadow:0 0 0 3px rgba(143,73,185,.7),0 12px 30px rgba(0,0,0,.45);
+  }
+  .who{font-size:15px;opacity:.8}
+  .talk .video{max-width:900px;width:100%}
+  .recap a{color:var(--cyan)}
+  .talk-body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(18px,3vw,34px);align-items:start}
+  .talk-body .facts li b{color:var(--cyan)}
+
+  /* Das Video lädt erst auf Klick: Ein eingebetteter Player meldet jeden
+     Seitenaufruf an Google, bevor überhaupt jemand abspielen wollte. Das
+     Standbild liegt deshalb hier im Repo. */
+  .video{
+    position:relative;width:100%;aspect-ratio:16/9;
+    border-radius:14px;overflow:hidden;
+    border:1px solid rgba(71,205,219,.4);
+    box-shadow:0 18px 50px rgba(0,0,0,.55);
+    background:#000;
+  }
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .facade{
+    position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;
+    background:none;display:grid;place-items:center;
+  }
+  .facade img{width:100%;height:100%;object-fit:cover;transition:opacity .25s,transform .35s}
+  .facade:hover img{opacity:.75;transform:scale(1.02)}
+  .facade .play{
+    position:absolute;width:clamp(48px,7vw,66px);aspect-ratio:1;border-radius:50%;
+    background:rgba(7,16,48,.72);border:2px solid var(--cyan);
+    display:grid;place-items:center;transition:background .2s,transform .2s;
+  }
+  .facade .play::before{
+    content:"";width:0;height:0;margin-left:4px;
+    border-left:clamp(14px,2vw,19px) solid var(--cyan);
+    border-top:clamp(9px,1.3vw,12px) solid transparent;
+    border-bottom:clamp(9px,1.3vw,12px) solid transparent;
+  }
+  .facade:hover .play{background:var(--cyan);transform:scale(1.06)}
+  .facade:hover .play::before{border-left-color:var(--navy)}
+  .facade:focus-visible{outline:3px solid var(--cyan);outline-offset:-3px}
+
+  .recap{display:flex;flex-direction:column;gap:12px;max-width:78ch}
+  .recap p{font-size:15px;line-height:1.55;opacity:.88}
+  details summary{
+    cursor:pointer;color:var(--cyan);font-size:clamp(13px,1.5vw,14px);font-weight:700;
+    list-style:none;padding:.8em 0;
+  }
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"+ ";font-weight:700}
+  details[open] summary::before{content:"– "}
+  details summary:hover{text-decoration:underline}
+  details .abstract{padding-top:6px}
+  .bio-line b{color:var(--cyan)}
+
+  .lightbox{
+    border:0;padding:0;background:none;margin:auto;max-width:96vw;max-height:96vh;
+    overflow:visible;color:var(--white);
+  }
+  .lightbox::backdrop{background:rgba(4,8,24,.92)}
+  .lightbox img{
+    display:block;max-width:92vw;max-height:88vh;width:auto;height:auto;
+    border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.7);
+  }
+  .lb{
+    position:absolute;width:44px;height:44px;border-radius:50%;cursor:pointer;
+    border:1px solid rgba(71,205,219,.5);background:rgba(7,16,48,.85);color:var(--cyan);
+    font-size:24px;line-height:1;transition:background .2s,color .2s;
+  }
+  .lb:hover{background:var(--cyan);color:var(--navy)}
+  .lb[hidden]{display:none}
+  .lb-prev{left:-12px;top:50%;transform:translateY(-50%)}
+  .lb-next{right:-12px;top:50%;transform:translateY(-50%)}
+  .lb-close{right:-12px;top:-14px;font-size:22px}
+  @media (max-width:900px){
+    .lb-prev{left:6px}
+    .lb-next{right:6px}
+    .lb-close{right:6px;top:-52px}
+  }
+
+  /* Die Fotos des Abends als vollständiges Raster: Wer einen Rückblick
+     aufmacht, will sehen, wie es war – nicht sich durch eine Reihe schieben,
+     die rechts abgeschnitten ist. Neun Bilder, drei mal drei. */
+  .shots{
+    list-style:none;display:grid;gap:10px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .shot{padding:0;border:0;background:none;cursor:zoom-in;display:block;width:100%;border-radius:12px}
+  .shots .shot img{
+    width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;
+    border-radius:12px;border:1px solid var(--edge);
+    transition:transform .25s,box-shadow .25s;
+  }
+  /* Ein großes Bild vorn, vier kleine daneben: das Foto, das den Abend
+     erzählt, soll nicht gleich groß sein wie die Folie von nahem. */
+  .shots.feature{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .shots.feature li:first-child{grid-column:span 2;grid-row:span 2}
+  .shots.feature li:first-child .shot,.shots.feature li:first-child img{height:100%}
+  .shots.feature li:first-child img{aspect-ratio:auto}
+  .shots .shot:hover img{transform:scale(1.015);box-shadow:0 14px 34px rgba(0,0,0,.5)}
+  .poster .shot img{transition:transform .25s}
+  .poster .shot:hover img{transform:scale(1.01)}
+
+  /* --- Kontakt --- */
+  .contact{display:flex;flex-direction:column;gap:16px}
+  .contact-intro{max-width:70ch}
+  .contact-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;max-width:820px}
+  .contact-form .wide{grid-column:1/-1}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--cyan)}
+  .field input,.field select,.field textarea{
+    font:inherit;font-size:16px;color:var(--white);
+    background:rgba(7,16,48,.55);border:1px solid var(--edge);border-radius:12px;
+    padding:.7em .9em;width:100%;
+  }
+  .field textarea{resize:vertical;min-height:8em;line-height:1.5}
+  .field select{appearance:none;cursor:pointer;padding-right:2.4em;
+    background-image:linear-gradient(45deg,transparent 50%,var(--cyan) 50%),linear-gradient(135deg,var(--cyan) 50%,transparent 50%);
+    background-position:calc(100% - 18px) 55%,calc(100% - 12px) 55%;background-size:6px 6px;background-repeat:no-repeat}
+  .field select option{background:var(--navy)}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(71,205,219,.2)}
+  .trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .send{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .send .btn{border:0;cursor:pointer;font-family:inherit}
+  .send .btn:disabled{opacity:.6;cursor:wait;transform:none}
+  .note{font-size:13px;opacity:.7;max-width:52ch;line-height:1.5}
+  .note a,.status a{color:var(--cyan)}
+  .status{font-size:15px;font-weight:700}
+  .status:empty{display:none}
+  .status.ok{color:var(--cyan)}
+  .status.err{color:#ff9db0}
+  @media (max-width:600px){
+    .contact-form{grid-template-columns:minmax(0,1fr)}
+    .talk-head.has-portrait{flex-direction:column;align-items:flex-start}
+    .portrait{order:-1;width:84px}
+  }
+
+  /* --- Fuß --- */
+  footer{
+    border:1px solid var(--edge);border-radius:20px;
+    background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+    padding:clamp(18px,3vw,26px);
+    display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;
+  }
+  .recruit{
+    font-size:clamp(15px,1.8vw,16px);line-height:1.5;max-width:70ch;
+  }
+  .recruit b{color:var(--cyan)}
+  .team{font-size:clamp(13px,1.5vw,14px);opacity:.8}
+  .recruit a{color:var(--white);font-weight:700}
+  .meta{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+    font-size:clamp(13px,1.5vw,14px);opacity:.9;
+    border-top:1px solid var(--edge);padding-top:14px;width:100%;
+  }
+  footer a{color:var(--cyan);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .meta .sep{opacity:.4}
+  .meta img{height:34px;width:34px;border-radius:50%;object-fit:cover;background:var(--white);border:1px solid rgba(255,255,255,.25)}
+
+  @media (max-width:900px){
+    .upcoming,.upcoming.no-poster{grid-template-columns:minmax(0,1fr)}
+    .upcoming .poster{width:100%;max-width:360px;margin-inline:auto}
+    .talk-body{grid-template-columns:minmax(0,1fr)}
+    .talk-body .poster{width:100%;max-width:360px;margin-inline:auto}
+    .join{max-width:360px;margin-inline:auto}
+    .shots,.shots.feature{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .shots:not(.feature) li:last-child:nth-child(odd){grid-column:span 2}
+    .shots.feature li:first-child{grid-row:auto}
+    .shots.feature li:first-child img{aspect-ratio:4/3}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;scroll-behavior:auto !important}
+  }
+</style>
+</head>
+<body>
+<a class="banner" href="#kontakt" data-betreff="Im Team mitmachen">
+  <b>Wir suchen Mitglieder!</b>
+  <span>Talks organisieren, moderieren, Social Media – Vorwissen brauchst du keins.</span>
+  <span class="banner-cta">Mitmachen &rarr;</span>
+</a>
+<div class="page">
+
+  <header>
+    <img src="../bpsa-logo.webp" width="220" height="220" alt="BPSA Logo" fetchpriority="high">
+    <h1>Willkommen bei der <span>Berlin Psychedelic Science Association</span> (BPSA)</h1>
+    <p class="lead">Du interessierst dich für Psychedelika, Bewusstsein und Wissenschaft? <em>Dann bist du bei uns richtig.</em></p>
+    <p class="intro">Die BPSA bringt Studierende und Interessierte aus unterschiedlichen Fachrichtungen zusammen, um gemeinsam über Psychedelik, Bewusstsein, Wissenschaft, Philosophie und Gesellschaft nachzudenken.</p>
+  </header>
+
+  <main>
+  <section class="card upcoming no-poster" aria-labelledby="naechster-talk">
+    <h2 class="section-title" id="naechster-talk">Nächster Talk</h2>
+
+    <div class="info">
+      <div class="talk-head has-portrait">
+        <div class="talk-head-text">
+          <span class="tag">Mittwoch, 04.11.2026</span>
+          <h3 class="talk-title lg">BPSA Talk mit Dr. med. Tomislav Majić
+            <small>Psychiater und Psychotherapeut · Charité, St. Hedwig-Krankenhaus · Das Thema geben wir in Kürze bekannt.</small>
+          </h3>
+        </div>
+        <img class="portrait" src="../majic/portrait.jpg" width="800" height="800" decoding="async" alt="Dr. med. Tomislav Majić">
+      </div>
+      <ul class="facts">
+        <li><b>Mittwoch, 4. November 2026</b>, ab 19:00 Uhr</li>
+        <li>HU Berlin, Philippstraße 12, Haus 4, Hörsaal 4</li>
+        <li>Eintritt frei, ohne Anmeldung</li>
+      </ul>
+      <p>Tomislav Majić ist Psychiater und Psychotherapeut an der Charité, leitet dort gemeinsam die Forschungsgruppe Psychedelische Substanzen und behandelt in der „Ambulanz Psychedelische Substanzen“ Menschen nach schwierigen psychedelischen Erfahrungen. Thema und alle Details kommen zuerst in die WhatsApp-Gruppe.</p>
+      <details>
+        <summary>Zur Person</summary>
+        <div class="abstract"><p>Tomislav Majić ist Psychiater und Psychotherapeut an der Psychiatrischen Universitätsklinik der Charité im St. Hedwig-Krankenhaus und leitet dort gemeinsam die Forschungsgruppe Psychedelische Substanzen. Er leitet eine allgemeinpsychiatrische Abteilung, eine Ambulanz für Doppeldiagnosen und die „Ambulanz Psychedelische Substanzen“, die Menschen mit psychedelika-bezogenen Störungen behandelt. In Studien zu psychedelisch unterstützter Therapie arbeitet er als Forscher und Studientherapeut. Er ist Herausgeber des Bandes <i lang="en">Psychedelic Harm Reduction</i> und lehrt am Berliner Institut für Psychotherapie und Psychoanalyse.</p></div>
+      </details>
+    </div>
+
+    <aside class="join">
+      <h3>Updates via WhatsApp</h3>
+      <img src="../whatsapp-qr.webp" width="420" height="420" decoding="async" alt="WhatsApp QR-Code zur BPSA-Gruppe">
+      <div class="links">
+        <a class="btn" href="https://chat.whatsapp.com/FjeicaFArV1JHYoMaVckRW?mode=gi_t" target="_blank" rel="noopener">WhatsApp-Gruppe beitreten</a>
+        <a class="btn alt" href="https://instagram.com/bpsa.berlin" target="_blank" rel="noopener">Instagram folgen</a>
+        <div class="cal">
+          <button class="btn alt cal-toggle" type="button" aria-haspopup="menu" aria-expanded="false"
+                  data-title="BPSA Talk: Dr. med. Tomislav Majić (Charité)"
+                  data-date="2026-11-04" data-start="19:00" data-end="20:30"
+                  data-location="HU Berlin, Philippstraße 12, Haus 4, Hörsaal 4"
+                  data-description="Talk der Berlin Psychedelic Science Association mit Dr. med. Tomislav Majić (Charité – Universitätsmedizin Berlin). Eintritt frei, ohne Anmeldung. Das Thema teilen wir vorher in der WhatsApp-Gruppe."
+                  data-url="https://bpsa.psng.info/">Zum Kalender hinzufügen</button>
+          <div class="cal-menu" role="menu" aria-label="Termin in den Kalender übernehmen" hidden>
+            <a role="menuitem" data-cal="google" href="#" target="_blank" rel="noopener">Google Kalender</a>
+            <button role="menuitem" data-cal="ics" type="button">Apple / Outlook (.ics)</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="card past" aria-labelledby="vergangene-talks">
+    <h2 class="section-title" id="vergangene-talks">Vergangene Talks</h2>
+
+    <article class="talk">
+      <div class="talk-head">
+        <span class="tag">20.10.2026</span>
+        <h3 class="talk-title lg"><span lang="en">„The Systematic Scientific Study of Altered States of Consciousness“</span>
+          <small>Wie lassen sich psychedelische und andere veränderte Bewusstseinszustände systematisch beschreiben, messen und vergleichen? — mit Prof. Dr. Timo Torsten Schmidt (Medical School Berlin)</small>
+        </h3>
+      </div>
+
+      <div class="talk-body">
+        <div class="poster" data-gallery="plakat-tts">
+          <button class="shot" type="button" aria-label="Plakat vergrößern">
+            <img src="../talk-2026-10-20-poster.jpg" width="880" height="1100" loading="lazy" decoding="async"
+                 alt="Plakat zum Talk „The Systematic Scientific Study of Altered States of Consciousness“ mit Prof. Dr. Timo T. Schmidt am 20.10.2026">
+          </button>
+        </div>
+        <div class="recap">
+          <ul class="facts">
+            <li><b>Dienstag, 20. Oktober 2026</b>, 19:00 – 20:30 Uhr, inkl. Apéro</li>
+            <li>HU Berlin, Philippstraße 12, Haus 4, Hörsaal 4 — und im Livestream auf Zoom</li>
+            <li>45 Minuten Vortrag auf Englisch, danach Q&amp;A</li>
+          </ul>
+          <p>Timo Torsten Schmidt ist Professor für Cognitive Neuroscience an der Medical School Berlin und hat die <a href="https://asdb.info" target="_blank" rel="noopener">Altered States Database</a> gegründet, mit der sich Erfahrungen unter verschiedenen Substanzen und Methoden erstmals quantitativ vergleichen lassen.</p>
+          <p>Die Aufzeichnung folgt hier in Kürze.</p>
+        </div>
+      </div>
+
+      <ul class="shots" data-gallery="abend-tts">
+          <li><button class="shot" type="button" aria-label="Foto 1 vergrößern"><img src="../tts/photo-01.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Prof. Dr. Timo Torsten Schmidt am 20.10.2026 (1 von 3)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 2 vergrößern"><img src="../tts/photo-02.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Prof. Dr. Timo Torsten Schmidt am 20.10.2026 (2 von 3)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 3 vergrößern"><img src="../tts/photo-03.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Prof. Dr. Timo Torsten Schmidt am 20.10.2026 (3 von 3)"></button></li>
+      </ul>
+    </article>
+
+    <article class="talk">
+      <div class="talk-head has-portrait">
+        <div class="talk-head-text">
+          <span class="tag">19.10.2026</span>
+          <h3 class="talk-title lg"><span lang="en">„Psychedelic Action as Deconstruction and Reconstruction“</span>
+            <small>aus der Vortragsreihe <span lang="en">„Neural Mechanisms of Psychedelic Drug Action“</span> von <a href="https://www.ecn-berlin.de" target="_blank" rel="noopener">ECN</a> und <a href="https://neurocure.de" target="_blank" rel="noopener">NeuroCure</a></small>
+          </h3>
+          <p class="who">mit Dr. Chris Timmermann · UCL Centre for Consciousness Research, London</p>
+        </div>
+        <img class="portrait" src="../timmermann/portrait.jpg" width="400" height="400" loading="lazy" decoding="async" alt="Dr. Chris Timmermann">
+      </div>
+
+      <div class="recap">
+        <ul class="facts">
+          <li><b>Montag, 19. Oktober 2026</b>, 17:30 Uhr</li>
+          <li>HU Berlin, Philippstraße 12, Haus 4, Hörsaal 4</li>
+        </ul>
+        <p>Rund 65 Leute waren dabei, als einer der führenden Köpfe der Psychedelika-Forschung in Berlin sprach. Es ging um Dekonstruktion und Rekonstruktion in psychedelischen Erfahrungen: um unmittelbare und längere Zyklen davon und um die Frage, welche Rolle unsere eigene <span lang="en">Agency</span> dabei spielt.</p>
+      </div>
+
+      <ul class="shots feature" data-gallery="abend-timmermann">
+          <li><button class="shot" type="button" aria-label="Foto 1 vergrößern"><img src="../timmermann/photo-01.jpg" width="1000" height="759" loading="lazy" decoding="async" alt="Voller Hörsaal beim Talk von Dr. Chris Timmermann am 19.10.2026 (1 von 5)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 2 vergrößern"><img src="../timmermann/photo-02.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Dr. Chris Timmermann am 19.10.2026 (2 von 5)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 3 vergrößern"><img src="../timmermann/photo-03.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Dr. Chris Timmermann am 19.10.2026 (3 von 5)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 4 vergrößern"><img src="../timmermann/photo-04.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Dr. Chris Timmermann am 19.10.2026 (4 von 5)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 5 vergrößern"><img src="../timmermann/photo-05.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Foto vom Talk mit Dr. Chris Timmermann am 19.10.2026 (5 von 5)"></button></li>
+      </ul>
+    </article>
+
+    <article class="talk">
+      <div class="talk-head has-portrait">
+        <div class="talk-head-text">
+          <span class="tag">08.09.2026</span>
+          <h3 class="talk-title lg">„Logos und Ekstase“
+            <small>Zur Genealogie eines akademischen Tabus</small>
+          </h3>
+          <p class="who">mit Miguel Estéfano Mora Vera, PhD cand. · Philosophie, Universität Freiburg</p>
+        </div>
+        <img class="portrait" src="../miguel/portrait.jpg" width="400" height="400" loading="lazy" decoding="async" alt="Miguel Estéfano Mora Vera">
+      </div>
+
+      <div class="video">
+        <button class="facade" type="button" data-embed="https://www.youtube-nocookie.com/embed/R4pILAsjxWM?autoplay=1&amp;rel=0"
+              aria-label="Aufzeichnung abspielen: Logos und Ekstase">
+          <img src="../yt-logos-und-ekstase.webp" width="960" height="540" loading="lazy" decoding="async" alt="">
+          <span class="play"></span>
+        </button>
+      </div>
+
+      <div class="recap">
+        <p>Miguel zeichnete nach, wie aus dem Ekstatischen ein akademisches Tabu wurde – von den Eleusinischen Mysterien und Platons <i>theia mania</i> über die Häresieprozesse bis in den Habitus der heutigen Universität. Aufzeichnung und Bilder des Abends:</p>
+        <details>
+          <summary>Abstract und Kurzvita</summary>
+          <div class="abstract">
+            <p>Im gegenwärtigen akademischen Diskurs haftet der Beschäftigung mit veränderten Bewusstseinszuständen und psychedelischen Erfahrungen noch immer der Geruch des Illegitimen an. Während die Naturwissenschaften das Phänomen mühsam über eine rein biomedizinische Zweckrationalität rehabilitieren, meidet der geisteswissenschaftliche Habitus das Ekstatische weitgehend – aus Furcht vor dem Bruch mit dem herrschenden, nüchtern-diskursiven Logos.</p>
+            <p>Dieser Vortrag unternimmt eine philosophiegeschichtliche Spurensuche und zeigt, dass dieses Tabu kein zeitloses Kriterium wissenschaftlicher Rationalität ist, sondern das Endprodukt einer zweitausendjährigen Verdrängungsgeschichte:</p>
+            <p>Standen in der griechischen Antike philosophische Erkenntnis und ekstatische Entgrenzung – von den Eleusinischen Mysterien bis zu Platons <i>theia mania</i> – in fruchtbarer Wechselwirkung, so erzwang die Institutionalisierung des Christentums die systematische Kriminalisierung und Ausgrenzung autonomer Transzendenzerfahrungen (von der Häresie-Verurteilung der Mystik bis zum Hexenhammer).</p>
+            <p>Die moderne Universität hat dieses Kontroll- und Abwehrdispositiv weitgehend säkularisiert geerbt. Der Vortrag plädiert dafür, das Psychedelische jenseits von Banalisierung und biomedizinischem Reduktionismus wieder als genuinen Gegenstand der Erkenntnistheorie und Phänomenologie zu begreifen – und skizziert die Notwendigkeit eines interdisziplinären Rahmens, der dem menschlichen Geist in seiner gesamten noetischen Breite gerecht wird.</p>
+            <p class="bio-line"><b>Zum Speaker:</b> Miguel Estéfano Mora Vera ist ein Philosoph, der an der Universität Freiburg promoviert und sich auf das existenzielle Erbe von Kierkegaard, Nietzsche und Heidegger spezialisiert hat. Durch die Synthese westlicher und östlicher Perspektiven eröffnet er neue Einblicke in das Wesen der Realität und das moderne Menschsein. Als aktiver Musiker und Komponist betrachtet er den schöpferischen Prozess zudem als eine wesentliche Erweiterung seines philosophischen Schaffens.</p>
+          </div>
+        </details>
+      </div>
+
+      <ul class="shots" data-gallery="abend">
+          <li><button class="shot" type="button" aria-label="Foto 1 vergrößern"><img src="../miguel/photo-01.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (1 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 2 vergrößern"><img src="../miguel/photo-02.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (2 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 3 vergrößern"><img src="../miguel/photo-03.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (3 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 4 vergrößern"><img src="../miguel/photo-04.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (4 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 5 vergrößern"><img src="../miguel/photo-05.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (5 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 6 vergrößern"><img src="../miguel/photo-06.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (6 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 7 vergrößern"><img src="../miguel/photo-07.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (7 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 8 vergrößern"><img src="../miguel/photo-08.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (8 von 9)"></button></li>
+          <li><button class="shot" type="button" aria-label="Foto 9 vergrößern"><img src="../miguel/photo-09.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="Foto vom Talk „Logos und Ekstase“ am 08.09.2026 (9 von 9)"></button></li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="card contact" id="kontakt" aria-labelledby="kontakt-titel">
+    <h2 class="section-title" id="kontakt-titel">Kontakt</h2>
+    <p class="contact-intro">Fragen, Ideen, ein Vortrag, den du halten oder vorschlagen willst, oder Lust, im Team mitzumachen? Schreib uns.</p>
+
+    <form class="contact-form" action="https://formspree.io/f/xeaeyzbe" method="POST">
+      <div class="field">
+        <label for="k-name">Name</label>
+        <input id="k-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="k-email">E-Mail</label>
+        <input id="k-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field wide">
+        <label for="k-betreff">Worum geht's?</label>
+        <select id="k-betreff" name="betreff" required>
+          <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
+          <option value="Vortrag halten oder vorschlagen">Vortrag halten oder Speaker vorschlagen</option>
+          <option value="Im Team mitmachen">Im Team mitmachen</option>
+          <option value="Kooperation oder Veranstaltung">Kooperation oder gemeinsame Veranstaltung</option>
+          <option value="Presse oder Medien">Presse oder Medien</option>
+          <option value="Frage zu einem Talk">Frage zu einem Talk</option>
+          <option value="Problem melden">Problem melden (Website, Event, Gruppe)</option>
+          <option value="Sonstiges">Sonstiges</option>
+        </select>
+      </div>
+      <div class="field wide">
+        <label for="k-nachricht">Nachricht</label>
+        <textarea id="k-nachricht" name="message" rows="6" required></textarea>
+      </div>
+      <!-- Formspree verwirft alles, was hier drin steht: Menschen sehen das Feld nicht, Bots füllen es aus. -->
+      <input class="trap" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_subject" value="BPSA Kontakt">
+      <div class="send wide">
+        <button class="btn" type="submit">Nachricht senden</button>
+        <p class="note">Deine Nachricht wird über <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">Formspree</a> an uns weitergeleitet. Lieber direkt? <a href="mailto:bpsa@psng.info">bpsa@psng.info</a></p>
+      </div>
+      <p class="status wide" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  </main>
+
+  <footer>
+    <p class="recruit"><b>Wir suchen Mitglieder.</b> Du willst nicht nur zuhören, sondern mitmachen – Talks organisieren, moderieren, Social Media, oder selbst einen Vortrag halten? <a href="#kontakt" data-betreff="Im Team mitmachen">Schreib uns</a>. Vorwissen brauchst du keins, Lust genügt.</p>
+    <p class="team">Organisiert von Jenny, Eric, Lilia, Miguel, Lennert und Meta.</p>
+    <div class="meta">
+      <img src="../psng-logo.webp" width="96" height="96" loading="lazy" decoding="async" alt="PSNG Logo">
+      <span>Teil des <a href="https://psng.info" target="_blank" rel="noopener">Psychedelic Student Network Germany</a></span>
+      <span class="sep">·</span>
+      <span><a href="#kontakt">Kontakt</a> · <a href="mailto:bpsa@psng.info">bpsa@psng.info</a></span>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" aria-label="Foto in groß">
+    <img alt="">
+    <button class="lb lb-prev" type="button" aria-label="Vorheriges Foto">&lsaquo;</button>
+    <button class="lb lb-next" type="button" aria-label="Nächstes Foto">&rsaquo;</button>
+    <button class="lb lb-close" type="button" aria-label="Schließen">&times;</button>
+  </dialog>
+
+</div>
+
+<script>
+  // Erst der Klick holt den Player – und damit erst der Klick Google.
+  document.querySelectorAll(".facade").forEach(function (facade) {
+    facade.addEventListener("click", function () {
+      var frame = document.createElement("iframe");
+      frame.src = facade.dataset.embed;
+      frame.title = facade.getAttribute("aria-label").replace(" abspielen", "");
+      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      frame.allowFullscreen = true;
+      facade.replaceWith(frame);
+    });
+  });
+
+  // Termin in den eigenen Kalender: Google kennt eine Adresse dafür, Apple
+  // und alle anderen nehmen eine ICS-Datei. Die Zeiten stehen als Ortszeit im
+  // HTML und werden hier nach UTC gerechnet – Intl kennt die Umstellungs-
+  // termine, ein fest verdrahtetes "+02:00" wäre im Winter falsch.
+  (function () {
+    var ZONE = "Europe/Berlin";
+
+    function zoneOffset(ms) {
+      var parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: ZONE, hour12: false, year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit"
+      }).formatToParts(new Date(ms));
+      var v = function (type) {
+        var p = parts.find(function (x) { return x.type === type; });
+        return Number(p ? p.value : 0);
+      };
+      return Date.UTC(v("year"), v("month") - 1, v("day"), v("hour") % 24, v("minute"), v("second")) - ms;
+    }
+
+    function stamp(dateIso, time) {
+      var d = dateIso.split("-").map(Number), t = time.split(":").map(Number);
+      var wall = Date.UTC(d[0], d[1] - 1, d[2], t[0], t[1]);
+      var ms = wall - zoneOffset(wall - zoneOffset(wall));
+      return new Date(ms).toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    }
+
+    function escape(value) {
+      return value.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+    }
+
+    // RFC 5545: höchstens 75 Oktette je Zeile, Fortsetzung mit einem Leerzeichen.
+    function fold(line) {
+      var out = [], current = "", bytes = 0;
+      for (var i = 0; i < line.length; i++) {
+        var size = new Blob([line[i]]).size;
+        if (bytes + size > 74) { out.push(current); current = ""; bytes = 1; }
+        current += line[i];
+        bytes += size;
+      }
+      out.push(current);
+      return out.join("\r\n ");
+    }
+
+    function read(button) {
+      var d = button.dataset;
+      return {
+        title: d.title, date: d.date, start: d.start, end: d.end,
+        location: d.location, text: d.description + "\n\n" + d.url, url: d.url
+      };
+    }
+
+    function googleUrl(e) {
+      var q = new URLSearchParams({
+        action: "TEMPLATE", text: e.title,
+        dates: stamp(e.date, e.start) + "/" + stamp(e.date, e.end),
+        details: e.text, location: e.location
+      });
+      return "https://calendar.google.com/calendar/render?" + q.toString();
+    }
+
+    function download(e) {
+      var lines = [
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//BPSA//bpsa.psng.info//DE",
+        "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
+        "UID:talk-" + e.date + "@bpsa.psng.info",
+        "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z",
+        "DTSTART:" + stamp(e.date, e.start), "DTEND:" + stamp(e.date, e.end),
+        "SUMMARY:" + escape(e.title), "DESCRIPTION:" + escape(e.text),
+        "LOCATION:" + escape(e.location), "URL:" + e.url,
+        "END:VEVENT", "END:VCALENDAR"
+      ];
+      var blob = new Blob([lines.map(fold).join("\r\n") + "\r\n"], { type: "text/calendar;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = url;
+      link.download = "bpsa-talk-" + e.date + ".ics";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
+
+    document.querySelectorAll(".cal").forEach(function (cal) {
+      var button = cal.querySelector(".cal-toggle");
+      var menu = cal.querySelector(".cal-menu");
+      var event = read(button);
+
+      function close() { menu.hidden = true; button.setAttribute("aria-expanded", "false"); }
+
+      button.addEventListener("click", function () {
+        if (!menu.hidden) { close(); return; }
+        menu.querySelector("[data-cal=google]").href = googleUrl(event);
+        menu.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+        menu.querySelector("[role=menuitem]").focus();
+      });
+
+      menu.querySelectorAll("[data-cal=ics]").forEach(function (item) {
+        item.addEventListener("click", function () { download(event); close(); button.focus(); });
+      });
+      menu.querySelector("[data-cal=google]").addEventListener("click", close);
+
+      document.addEventListener("pointerdown", function (e) {
+        if (!menu.hidden && !cal.contains(e.target)) close();
+      });
+      cal.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !menu.hidden) { close(); button.focus(); }
+      });
+    });
+  })();
+
+  // Bild groß: ein <dialog> übernimmt Hintergrund, Escape und Fokusfalle,
+  // hier bleiben Gruppen und Blättern. Jede Gruppe (die Fotos eines Abends,
+  // ein Plakat für sich) blättert nur in sich selbst.
+  (function () {
+    var box = document.querySelector(".lightbox");
+    if (!box || !box.showModal) return;
+    var view = box.querySelector("img");
+    var prev = box.querySelector(".lb-prev");
+    var next = box.querySelector(".lb-next");
+    var group = [];
+    var at = 0;
+
+    function show(index) {
+      at = (index + group.length) % group.length;
+      var source = group[at].querySelector("img");
+      view.src = source.currentSrc || source.src;
+      view.alt = source.alt;
+    }
+
+    document.querySelectorAll(".shot").forEach(function (shot) {
+      shot.addEventListener("click", function () {
+        var holder = shot.closest("[data-gallery]") || shot.parentElement;
+        group = [].slice.call(holder.querySelectorAll(".shot"));
+        var alone = group.length < 2;
+        prev.hidden = alone;
+        next.hidden = alone;
+        show(group.indexOf(shot));
+        box.showModal();
+      });
+    });
+
+    prev.addEventListener("click", function () { show(at - 1); });
+    next.addEventListener("click", function () { show(at + 1); });
+    box.querySelector(".lb-close").addEventListener("click", function () { box.close(); });
+    box.addEventListener("keydown", function (e) {
+      if (group.length < 2) return;
+      if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
+    });
+    // Am Telefon wischt man statt zu tippen.
+    var touchX = null;
+    box.addEventListener("touchstart", function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+    box.addEventListener("touchend", function (e) {
+      if (touchX === null || group.length < 2) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1));
+    });
+    // Klick neben das Bild schließt – der Dialog selbst ist die Fläche drumherum.
+    box.addEventListener("click", function (e) { if (e.target === box) box.close(); });
+    // Beim Schließen die Quelle freigeben, sonst hängt das größte Bild der
+    // Seite dauerhaft im Speicher.
+    box.addEventListener("close", function () {
+      if (group[at]) group[at].focus();
+      view.removeAttribute("src");
+    });
+  })();
+  // Kontaktformular: abschicken ohne die Seite zu verlassen. Ohne JavaScript
+  // geht das Formular ganz normal an Formspree und landet dort auf deren Seite.
+  (function () {
+    var form = document.querySelector(".contact-form");
+    if (!form || !window.fetch) return;
+    var status = form.querySelector(".status");
+    var button = form.querySelector("[type=submit]");
+    var topic = form.querySelector("[name=betreff]");
+    var subject = form.querySelector("[name=_subject]");
+
+    // Links mit data-betreff (etwa "Mitmachen" im Fuß) wählen das Thema vor.
+    document.querySelectorAll("[data-betreff]").forEach(function (link) {
+      link.addEventListener("click", function () { topic.value = link.dataset.betreff; });
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      subject.value = "BPSA Kontakt: " + topic.value;
+      button.disabled = true;
+      status.className = "status wide";
+      status.textContent = "Wird gesendet …";
+      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.status);
+          form.reset();
+          status.className = "status wide ok";
+          status.textContent = "Danke! Deine Nachricht ist angekommen, wir melden uns.";
+        })
+        .catch(function () {
+          status.className = "status wide err";
+          status.innerHTML = 'Das hat leider nicht geklappt. Schreib uns gern direkt an <a href="mailto:bpsa@psng.info">bpsa@psng.info</a>.';
+        })
+        .then(function () { button.disabled = false; });
+    });
+  })();
+</script>
+<script data-goatcounter="https://psng-bpsa.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
