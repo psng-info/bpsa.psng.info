@@ -20,6 +20,24 @@
         ],
         "createdAt": "2026-10-21T20:18:44.804Z",
         "reason": "Montserrat is the typeface of the BPSA logo wordmark; user asked for the name set like the logo"
+      },
+      {
+        "rule": "overused-font",
+        "value": "montserrat",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-21T21:33:43.688Z",
+        "reason": "Montserrat is only the hero wordmark, set like the BPSA logo lettering; body is DM Sans"
+      },
+      {
+        "rule": "overused-font",
+        "value": "montserrat",
+        "files": [
+          "en/index.html"
+        ],
+        "createdAt": "2026-10-21T21:33:43.709Z",
+        "reason": "Montserrat is only the hero wordmark, set like the BPSA logo lettering; body is DM Sans"
       }
     ]
   }

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T22:00:00Z",
+  "title": "Design System: Berlin Psychedelic Science Association",
+  "extensions": {
+    "colorMeta": {
+      "night-navy": { "role": "neutral", "displayName": "Night Navy", "canonical": "#0a0f2e", "tonalRamp": ["#05081a", "#0a0f2e", "#141c48", "#232c62", "#3a4380", "#5d659e", "#9399c4", "#d3d6ea"] },
+      "deep-navy": { "role": "neutral", "displayName": "Deep Navy", "canonical": "#0e1640", "tonalRamp": ["#070b22", "#0e1640", "#18215a", "#262f73", "#3d478f", "#6068aa", "#959bcb", "#d4d7ec"] },
+      "paper-white": { "role": "primary", "displayName": "Paper White", "canonical": "#ffffff", "tonalRamp": ["#1f2033", "#3a3c55", "#5e6079", "#868aa3", "#adb0c6", "#d2d4e3", "#ecedf4", "#ffffff"] },
+      "mist": { "role": "neutral", "displayName": "Mist", "canonical": "#cdd2ea", "tonalRamp": ["#22263d", "#3a3f5e", "#575d80", "#7a80a3", "#9da3c3", "#cdd2ea", "#e4e7f4", "#f4f5fb"] },
+      "signal-cyan": { "role": "secondary", "displayName": "Signal Cyan", "canonical": "#7fe3ee", "tonalRamp": ["#033a40", "#066a76", "#0b8f9e", "#22b3c3", "#4fd0de", "#7fe3ee", "#b5f0f6", "#e3fafc"] },
+      "lilac": { "role": "tertiary", "displayName": "Lilac", "canonical": "#d6b4fb", "tonalRamp": ["#2d1450", "#4a2380", "#7a3ccf", "#9a63e3", "#b98cf0", "#d6b4fb", "#e9d7fd", "#f7f0fe"] },
+      "daylight": { "role": "neutral", "displayName": "Daylight", "canonical": "#f6f7fa", "tonalRamp": ["#1d2030", "#3b3f54", "#60657c", "#8b90a5", "#b6bacb", "#dcdfe8", "#eef0f5", "#f6f7fa"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#14163c", "tonalRamp": ["#0a0b1f", "#14163c", "#232659", "#363a76", "#4b5074", "#7d82a3", "#b3b6cc", "#e3e4ee"] }
+    },
+    "typographyMeta": {
+      "wordmark": { "displayName": "Wordmark", "purpose": "The organisation name in the hero, set like the logo lettering. Nowhere else." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings, upright, one colour." },
+      "title": { "displayName": "Title", "purpose": "Talk titles and speaker names." },
+      "body": { "displayName": "Body", "purpose": "All prose, held to 58–68ch." },
+      "label": { "displayName": "Label", "purpose": "Series labels, weekday and time, FAQ questions, role titles. Sentence case." },
+      "date": { "displayName": "Date", "purpose": "Day and month of each talk, echoing the posters." }
+    },
+    "shadows": [
+      { "name": "ambient-dark", "value": "0 24px 60px rgba(0,0,0,.42)", "purpose": "Next-talk card, video frames and join panel in dark mode." },
+      { "name": "ambient-light", "value": "0 18px 44px rgba(22,20,64,.10)", "purpose": "Same surfaces in light mode." }
+    ],
+    "motion": [
+      { "name": "hover", "value": "0.2s", "purpose": "Colour and 1px lift on buttons and links. Turned off under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "560px" },
+      { "name": "small-tablet", "value": "700px" },
+      { "name": "tablet", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The WhatsApp action; the only filled shape on a page.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">WhatsApp-Gruppe beitreten</a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8em 1.4em;border-radius:999px;background:#ffffff;color:#0a0f2e;font:700 16px/1.2 'DM Sans',system-ui,sans-serif;text-decoration:none;transition:transform .2s,filter .2s}.ds-btn-primary:hover{transform:translateY(-1px);filter:brightness(1.07)}.ds-btn-primary:focus-visible{outline:2px solid #7fe3ee;outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary actions such as adding to the calendar.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Zum Kalender hinzufügen</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;min-height:44px;padding:.8em 1.4em;border-radius:999px;background:transparent;color:#ffffff;border:1.5px solid rgba(255,255,255,.22);font:700 16px/1.2 'DM Sans',system-ui,sans-serif;cursor:pointer;transition:color .2s,border-color .2s}.ds-btn-ghost:hover{border-color:#7fe3ee;color:#7fe3ee}.ds-btn-ghost:focus-visible{outline:2px solid #7fe3ee;outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Contact form input.",
+      "html": "<label class=\"ds-field\"><span>E-Mail</span><input type=\"email\" placeholder=\"du@beispiel.de\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font:700 14px 'DM Sans',system-ui,sans-serif;color:#ffffff}.ds-field input{font:400 16px 'DM Sans',system-ui,sans-serif;color:#ffffff;background:rgba(10,15,46,.6);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:.75em .9em;min-height:48px}.ds-field input:focus{outline:none;border-color:#7fe3ee;box-shadow:0 0 0 3px rgba(127,227,238,.15)}"
+    },
+    {
+      "name": "Jump Link",
+      "kind": "nav",
+      "refersTo": "jump",
+      "description": "Section links on phones and tablets.",
+      "html": "<nav class=\"ds-jump\"><a href=\"#\">Rückblick</a><a href=\"#\">Partner</a><a href=\"#\">Mitmachen</a><a href=\"#\">Kontakt</a></nav>",
+      "css": ".ds-jump{display:flex;flex-wrap:wrap;gap:8px}.ds-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#ffffff;text-decoration:none;font:600 15px 'DM Sans',system-ui,sans-serif}.ds-jump a:hover{border-color:#7fe3ee;color:#7fe3ee}"
+    },
+    {
+      "name": "FAQ Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Question and short answer for first-timers.",
+      "html": "<div class=\"ds-card\"><h3>Muss ich studieren?</h3><p>Nein. Die Talks sind offen für alle, die sich für das Thema interessieren.</p></div>",
+      "css": ".ds-card{padding:22px 20px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.045);max-width:340px}.ds-card h3{font:700 18px/1.3 'DM Sans',system-ui,sans-serif;color:#ffffff;margin:0 0 8px}.ds-card p{font:400 15px/1.5 'DM Sans',system-ui,sans-serif;color:#cdd2ea;margin:0}"
+    },
+    {
+      "name": "Talk Row",
+      "kind": "custom",
+      "refersTo": "talk-card",
+      "description": "Programme entry: large date, series label, serif title, speaker.",
+      "html": "<div class=\"ds-talk\"><div class=\"ds-date\"><b>04.11.</b><span>Mi · 19:00 Uhr</span></div><div><p class=\"ds-series\">BPSA Talk</p><h3>Dr. med. Tomislav Majić</h3><p class=\"ds-aff\">Psychiater und Psychotherapeut · Charité</p></div></div>",
+      "css": ".ds-talk{display:grid;grid-template-columns:130px 1fr;gap:24px;padding:24px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:rgba(255,255,255,.045);color:#ffffff}.ds-date b{display:block;font:400 56px/.9 'Bebas Neue','Arial Narrow',sans-serif}.ds-date span{font:600 15px/1.3 'DM Sans',system-ui,sans-serif;color:#7fe3ee}.ds-series{font:700 14px/1.3 'DM Sans',system-ui,sans-serif;color:#d6b4fb;margin:0 0 4px}.ds-talk h3{font:700 26px/1.2 'Libre Baskerville',Georgia,serif;margin:0 0 6px}.ds-aff{font:400 16px/1.45 'DM Sans',system-ui,sans-serif;color:#cdd2ea;margin:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Evening Programme",
+    "overview": "The site reads like the printed programme of a lecture series: a date set large, a name, an institution, a lecture hall, and a way to come along. Everything else steps back. Dark mode is the house design, a calm night navy with no violet tint and no glow, because most visitors open a link from WhatsApp on a phone in the evening. Light mode is a neutral off-white, never lavender.\n\nThe real material carries the character: speaker portraits, photos of full lecture halls, real affiliations and dates. The interface around it stays quiet and specific so the page never reads as a generated template. The neon cyan-to-magenta gradient belongs to the BPSA logo and stays in the logo.",
+    "keyCharacteristics": [
+      "One filled colour per screen: the WhatsApp button.",
+      "Serif headings, sans body, large condensed dates, and the logo's lettering only for the name.",
+      "Flat, tonal surfaces with thin lines; one soft shadow, only on feature cards.",
+      "Real photos and names instead of icons, stats tiles or illustrations.",
+      "German and English pages share one stylesheet and stay identical in structure."
+    ],
+    "rules": [
+      { "name": "The One Fill Rule", "body": "Only the primary WhatsApp action is a filled shape. Labels, tags and notes (\"Eintritt frei · ohne Anmeldung\") are text, never pills that look clickable.", "section": "colors" },
+      { "name": "The Logo Keeps Its Gradient Rule", "body": "The cyan-to-magenta gradient appears in the logo image and nowhere else on the site: not in headings, not on portrait rings, not as glows. The one sanctioned exception is the Google Form header banner (tools/form-banner.html), where the wordmark is set in the logo gradient.", "section": "colors" },
+      { "name": "The Numbers-Only Rule", "body": "Bebas Neue sets dates and the short \"BPSA\" in the header. It never sets sentences, questions or labels: it is too narrow to read as text.", "section": "typography" },
+      { "name": "The Upright Rule", "body": "No italic or coloured accent words in headings. Italic is reserved for titles of works and foreign terms inside running text (theia mania, Psychedelic Harm Reduction).", "section": "typography" },
+      { "name": "The No Glow Rule", "body": "No coloured shadows, radial glows or neon halos. Depth comes from tone and one neutral shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the WhatsApp button the only filled colour on the page.",
+      "Do use real photos, names, institutions and dates; let a full lecture hall be the proof.",
+      "Do set dates in Bebas Neue and everything readable in DM Sans or Libre Baskerville.",
+      "Do keep German and English pages identical in structure; change both together.",
+      "Do check every change at 375 × 812: date, place and WhatsApp button must stay in the first screen."
+    ],
+    "donts": [
+      "Don't use gradient text, glows, coloured shadows or violet-tinted backgrounds.",
+      "Don't put small uppercase labels above headings, or italic coloured accent words inside them.",
+      "Don't style information as a pill or button when it is not clickable.",
+      "Don't build stat tiles or hero metrics; put numbers into sentences or photo captions.",
+      "Don't use Bebas Neue for questions, labels or running text."
+    ]
+  }
+}

@@ -19,8 +19,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../bpsa-logo.webp" type="image/webp">
 <style>
+  /* Dieselben Schriften und dasselbe Nachtblau wie die Startseite (siehe DESIGN.md). */
+  @font-face{font-family:"Libre Baskerville";font-weight:700;font-style:normal;font-display:swap;
+    src:url("../fonts/libre-baskerville-700.woff2") format("woff2")}
+  @font-face{font-family:"DM Sans";font-weight:100 1000;font-style:normal;font-display:swap;
+    src:url("../fonts/dm-sans-variable.woff2") format("woff2")}
   :root{
-    --navy:#071030;
+    --navy:#0a0f2e;
     --cyan:#47cddb;
     --purple:#8f49b9;
     --white:#ffffff;
@@ -36,14 +41,10 @@
   *{box-sizing:border-box;margin:0;padding:0}
   :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
   body{
-    background:
-      radial-gradient(1000px 700px at 12% 12%, rgba(71,205,219,.38), transparent 60%),
-      radial-gradient(900px 700px at 88% 20%, rgba(143,73,185,.42), transparent 62%),
-      radial-gradient(1100px 800px at 70% 100%, rgba(71,205,219,.24), transparent 60%),
-      linear-gradient(150deg, #0d1b47 0%, var(--navy) 45%, #10063a 100%);
+    background:linear-gradient(180deg, var(--navy) 0%, #0e1640 100%);
     background-attachment:fixed;
     color:var(--white);
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family:"DM Sans",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
     min-height:100dvh;
   }
   main{display:contents}
@@ -53,33 +54,18 @@
     display:flex;flex-direction:column;gap:clamp(24px,4vw,40px);
   }
   img{max-width:100%}
-  /* Eine Schleife über die Ecke: sagt, dass die Seite ein Entwurf ist,
-     und nimmt dem Inhalt keinen Platz weg. */
-  .ribbon{position:fixed;top:0;right:0;width:168px;height:168px;overflow:hidden;pointer-events:none;z-index:9}
-  .ribbon span{
-    position:absolute;top:56px;right:-32px;width:200px;transform:rotate(45deg);
-    background:var(--purple);border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);
-    box-shadow:0 2px 10px rgba(7,16,48,.45);
-    text-align:center;padding:6px 0;
-    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  }
-  /* Auf dem Telefon rückt die Schleife enger in die Ecke, und die Seite
-     fängt etwas tiefer an, damit sie nichts überdeckt. */
-  @media (max-width:560px){
-    .ribbon{width:116px;height:116px}
-    .ribbon span{top:36px;right:-30px;width:152px;font-size:9px;letter-spacing:.04em;padding:5px 0}
-    .page{padding-top:52px}
-  }
 
   /* --- Kopf --- */
   header{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
-  header img{height:clamp(52px,8vw,74px);width:auto;filter:drop-shadow(0 0 14px rgba(71,205,219,.5))}
-  h1{font-size:clamp(19px,3.2vw,30px);font-weight:700;line-height:1.25}
-  h1 span{color:var(--cyan)}
-  .lead{font-size:clamp(13px,2vw,17px);font-weight:700}
-  .lead em{font-style:normal;color:var(--purple);filter:brightness(1.45)}
-  header p.intro{font-size:clamp(12px,1.7vw,15px);opacity:.85;max-width:80ch;line-height:1.5}
-  .home{font-size:clamp(11px,1.5vw,13px);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  header img{height:clamp(52px,8vw,74px);width:auto}
+  h1{font-family:"Libre Baskerville",Georgia,serif;font-size:clamp(24px,3.6vw,36px);font-weight:700;line-height:1.2;text-wrap:balance}
+  .lead{font-size:clamp(16px,2vw,18px);font-weight:700;text-wrap:balance}
+  .lead em{font-style:normal}
+  header p.intro{font-size:16px;color:#cdd2ea;max-width:70ch;line-height:1.55;text-wrap:pretty}
+  /* Entwurf: eine Zeile statt einer Schleife über der Ecke. */
+  .draft{font-size:14px;font-weight:600;color:#cdd2ea;border:1px solid var(--edge);border-radius:999px;padding:4px 12px}
+  .draft a{color:var(--cyan)}
+  .home{font-size:14px;font-weight:700}
   .home a{color:var(--cyan);text-decoration:none}
   .home a:hover{text-decoration:underline}
 
@@ -96,20 +82,25 @@
     padding:.35em 1em;background:rgba(71,205,219,.1);
   }
   .section-title{
-    font-size:clamp(11px,1.5vw,13px);letter-spacing:.18em;text-transform:uppercase;
-    font-weight:700;opacity:.65;border-bottom:1px solid var(--edge);padding-bottom:.6em;
+    font-family:"Libre Baskerville",Georgia,serif;font-size:clamp(20px,2.4vw,24px);
+    font-weight:700;border-bottom:1px solid var(--edge);padding-bottom:.6em;
   }
-  .card p{font-size:clamp(12px,1.7vw,15px);opacity:.88;line-height:1.55}
+  .card p{font-size:16px;color:#cdd2ea;line-height:1.6}
   .card p b{color:var(--white);opacity:1}
   .card a{color:var(--cyan)}
 
   /* --- Die Karte --- */
-  /* Zwei Bilder statt eines: Fünf der acht Gruppen sitzen in Mitte innerhalb
-     von 1,8 Kilometern. Auf einer Karte, die ganz Berlin zeigt, liegen die
-     fünf Nadeln übereinander – also steht Mitte noch einmal daneben, groß. */
+  /* Zwei Bilder statt eines: Sechs der neun Gruppen sitzen in Mitte innerhalb
+     von 600 Metern. Auf einer Karte, die ganz Berlin zeigt, liegen die
+     sechs Nadeln übereinander – also steht Mitte noch einmal daneben, groß. */
   .maps{display:grid;gap:clamp(14px,2.5vw,22px);grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}
   .maps figure{display:flex;flex-direction:column;gap:10px;min-width:0}
-  .maps figcaption{font-size:clamp(10px,1.3vw,12px);letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.6}
+  .maps figcaption{font-size:14px;font-weight:700;color:#cdd2ea}
+  /* Am Telefon sind die Nadeln klein: darunter dieselben Gruppen als Liste zum Antippen. */
+  .key{list-style:none;display:flex;flex-wrap:wrap;gap:6px 8px;font-size:14px}
+  .key a{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 12px;border:1px solid var(--edge);border-radius:999px;color:#fff;text-decoration:none}
+  .key a:hover{border-color:var(--cyan)}
+  .key b{font-weight:700}
   .maps svg{display:block;width:100%;height:auto;overflow:visible}
   /* Der Spree-Pfad läuft über den Ausschnitt hinaus – ohne Schnitt zöge er
      eine Linie quer über die Seite. */
@@ -130,7 +121,7 @@
   .pin .disc{stroke:var(--navy);stroke-width:3;transition:transform .18s}
   .pin .num{fill:var(--navy);font-size:30px;font-weight:700;text-anchor:middle;dominant-baseline:central;pointer-events:none}
   .pin:hover .disc,.pin:focus-visible .disc,.pin.is-hot .disc{transform:scale(1.18);transform-origin:center;transform-box:fill-box}
-  .pin.is-hot .disc{filter:drop-shadow(0 0 10px currentColor)}
+  .pin.is-hot .disc{stroke:#fff;stroke-width:4}
   .pin-charite .disc{fill:var(--c-charite);color:var(--c-charite)}
   .pin-hu .disc{fill:var(--c-hu);color:var(--c-hu)}
   .pin-msb .disc{fill:var(--c-msb);color:var(--c-msb)}
@@ -145,7 +136,7 @@
   .mark-label{fill:#fff;font-size:21px;font-weight:700;pointer-events:none}
   .mark-label tspan{font-weight:400;opacity:.6}
 
-  .legend{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:clamp(11px,1.5vw,13px);opacity:.85}
+  .legend{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:#cdd2ea}
   .legend li{display:flex;align-items:center;gap:8px}
   .legend i{width:13px;height:13px;border-radius:50%;flex:none;border:1px solid rgba(7,16,48,.5)}
   .legend .l-charite{background:var(--c-charite)}
@@ -171,23 +162,20 @@
   .lab-charite .no{background:var(--c-charite)}
   .lab-hu .no{background:var(--c-hu)}
   .lab-msb .no{background:var(--c-msb)}
-  .lab h3{font-size:clamp(14px,2vw,18px);font-weight:700;line-height:1.3}
+  .lab h3{font-size:clamp(17px,2vw,19px);font-weight:700;line-height:1.3}
   .lab h3 small{display:block;font-size:.76em;font-weight:400;opacity:.7;margin-top:.35em;line-height:1.4}
-  .lab dl{display:flex;flex-direction:column;gap:9px;font-size:clamp(12px,1.6vw,14px);line-height:1.5}
-  .lab dt{
-    font-size:clamp(9px,1.2vw,10.5px);letter-spacing:.16em;text-transform:uppercase;
-    font-weight:700;opacity:.55;margin-bottom:.25em;
-  }
-  .lab dd{opacity:.9}
+  .lab dl{display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.55}
+  .lab dt{font-size:13px;font-weight:700;color:#cdd2ea;margin-bottom:.2em}
+  .lab dd{color:#e6e8f4}
   .lab dd b{color:var(--white);opacity:1}
   .lab .get{color:var(--cyan)}
   .lab .get b{color:var(--cyan)}
-  .lab .where{font-size:clamp(11px,1.5vw,13px);opacity:.75}
-  .lab .links{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:clamp(11px,1.5vw,13px);margin-top:2px}
-  .lab .links a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(71,205,219,.4)}
+  .lab .where{font-size:14px;color:#cdd2ea}
+  .lab .links{display:flex;flex-wrap:wrap;gap:0 16px;font-size:14px;margin-top:2px}
+  .lab .links a{color:var(--cyan);text-decoration:underline;text-decoration-color:rgba(71,205,219,.45);text-underline-offset:3px;display:inline-block;padding-block:10px}
   .lab .links a:hover{border-bottom-color:var(--cyan)}
 
-  .caveat{font-size:clamp(11px,1.5vw,13.5px);line-height:1.6;opacity:.8}
+  .caveat{font-size:15px;line-height:1.6;color:#cdd2ea}
   .caveat b{color:var(--cyan);opacity:1}
   .caveat ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:10px}
   .caveat li{padding-left:1.4em;position:relative}
@@ -196,16 +184,16 @@
   /* --- Fuß --- */
   footer{
     border:1px solid var(--edge);border-radius:20px;
-    background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+    background:var(--panel);
     padding:clamp(18px,3vw,26px);
     display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;
   }
-  .recruit{font-size:clamp(12px,1.8vw,16px);line-height:1.5;max-width:70ch}
+  .recruit{font-size:16px;line-height:1.55;max-width:70ch}
   .recruit b{color:var(--cyan)}
   .recruit a{color:var(--white);font-weight:700}
   .meta{
     display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
-    font-size:clamp(11px,1.5vw,14px);opacity:.9;
+    font-size:14px;
     border-top:1px solid var(--edge);padding-top:14px;width:100%;
   }
   footer a{color:var(--cyan);text-decoration:none}
@@ -227,15 +215,15 @@
 </style>
 </head>
 <body>
-<div class="ribbon" aria-hidden="true"><span>Preliminary draft</span></div>
 <div class="page">
 
   <header>
     <img src="../bpsa-logo.webp" width="220" height="220" alt="BPSA Logo" fetchpriority="high">
     <p class="home"><a href="../">&larr; Berlin Psychedelic Science Association</a></p>
-    <h1><span>Psychedelic research in Berlin</span> — a map of the labs</h1>
+    <h1>Psychedelic research in Berlin — a map of the labs</h1>
     <p class="lead">Nine academic groups. Three institutions. <em>Six of them within six hundred metres of each other.</em></p>
     <p class="intro">This map shows every university research group in Berlin we could find that publishes peer-reviewed work on psychedelics or on altered states of consciousness — what each one actually studies, and how a student gets in. Last checked 19 October 2026.</p>
+    <p class="draft">Preliminary draft · corrections welcome: <a href="mailto:bpsa@psng.info?subject=Berlin%20psychedelic%20research%20map">bpsa@psng.info</a></p>
   </header>
 
   <main>
@@ -260,21 +248,23 @@
             <rect class="detail-box" x="407.9" y="341.5" width="72.0" height="49.7" rx="6"/>
             <text class="detail-tag" x="443.9" y="330.5" text-anchor="middle">MITTE</text>
           </g>
-          <a class="pin pin-hu" data-for="g7" href="#g7" transform="translate(662.1,594.8)"><title>7 and 8 — two groups of the HU Institut für Psychologie, Campus Adlershof</title><rect class="hit" x="-58" y="-34" width="116" height="68"/><rect class="disc" x="-46" y="-25" width="92" height="50" rx="25"/><text class="num" y="1">7&#8211;8</text></a><a class="pin pin-msb" data-for="g9" href="#g9" transform="translate(331.3,503.8)"><title>9 — Professorship of Cognitive Neuroscience, MSB Medical School Berlin, Wilmersdorf</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">9</text></a><text class="mark-label" x="662" y="650" text-anchor="middle">Adlershof</text><text class="mark-label" x="373" y="510">Wilmersdorf</text><g class="scale" transform="translate(24,800)" aria-hidden="true"><path d="M0,-8 V0 H219.4 V-8"/><text x="109.7" y="22" text-anchor="middle">10 km</text></g>
+          <a class="pin pin-hu" data-for="g7 g8" href="#g7" transform="translate(662.1,594.8)"><title>7 and 8 — two groups of the HU Institut für Psychologie, Campus Adlershof</title><rect class="hit" x="-58" y="-34" width="116" height="68"/><rect class="disc" x="-46" y="-25" width="92" height="50" rx="25"/><text class="num" y="1">7&#8211;8</text></a><a class="pin pin-msb" data-for="g9" href="#g9" transform="translate(331.3,503.8)"><title>9 — Professorship of Cognitive Neuroscience, MSB Medical School Berlin, Wilmersdorf</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">9</text></a><text class="mark-label" x="662" y="650" text-anchor="middle">Adlershof</text><text class="mark-label" x="373" y="510">Wilmersdorf</text><g class="scale" transform="translate(24,800)" aria-hidden="true"><path d="M0,-8 V0 H219.4 V-8"/><text x="109.7" y="22" text-anchor="middle">10 km</text></g>
         </svg>
         <figcaption>Berlin — the three groups outside the centre</figcaption>
+        <ul class="key"><li><a href="#g7"><b>7</b> Lueken Lab</a></li><li><a href="#g8"><b>8</b> Clinical Psychology of Social Interaction</a></li><li><a href="#g9"><b>9</b> Cognitive Neuroscience, MSB</a></li></ul>
       </figure>
 
       <figure>
-        <svg viewBox="-14 -40 1028 700" aria-label="Enlarged map of central Berlin around the Charité campus, showing groups one to five, the St. Hedwig clinic and the BPSA lecture hall. Every location is also listed in text below.">
+        <svg viewBox="-14 -40 1028 700" aria-label="Enlarged map of central Berlin around the Charité campus, showing groups one to six, the St. Hedwig clinic and the BPSA lecture hall. Every location is also listed in text below.">
           <defs><clipPath id="mitte-clip"><rect x="0" y="0" width="1000" height="615"/></clipPath></defs>
           <g aria-hidden="true">
             <path class="water clipped" d="M-1014.1,-341 -1001.4,-339.2M-1001.4,-339.2 -981,-340.4M-981,-340.4 -940.3,-343.8M-940.3,-343.8 -915,-346M-915,-346 -891.3,-345.6M-891.3,-345.6 -868.2,-341.4M-868.2,-341.4 -856.2,-339.2M-856.2,-339.2 -847.9,-335.4M-847.9,-335.4 -834.7,-327.4M-3583.5,-1230.6 -3483.5,-1158.2M-3483.5,-1158.2 -3353.7,-1052.2M-3353.7,-1052.2 -3336.4,-1037.7M-3336.4,-1037.7 -3304.2,-1011.2M-3304.2,-1011.2 -3234.5,-953.7M-3234.5,-953.7 -3105,-847.1M-3105,-847.1 -3068.9,-818.4M-3068.9,-818.4 -3038.7,-796.2M-3038.7,-796.2 -2973,-748.3M-2973,-748.3 -2924.6,-719.7M-2924.6,-719.7 -2878.3,-704.3M-2878.3,-704.3 -2848.7,-697.1M-2848.7,-697.1 -2818.9,-693.4M-2818.9,-693.4 -2751.8,-689M-2751.8,-689 -2731.8,-688M-2731.8,-688 -2591.4,-683.6M-2591.4,-683.6 -2489.5,-682.4M-2489.5,-682.4 -2469.3,-682.1M-2469.3,-682.1 -2353,-678M-2353,-678 -2337.4,-677.5M-2337.4,-677.5 -2232.4,-673.9M-2232.4,-673.9 -2147.3,-671.7M-2147.3,-671.7 -1974.4,-667M-1974.4,-667 -1902.6,-665.1M-1902.6,-665.1 -1821.7,-662.7M-1821.7,-662.7 -1758.4,-661M-1758.4,-661 -1707.1,-659.3M-1707.1,-659.3 -1628.8,-657.1M-1628.8,-657.1 -1595.6,-655.3M-1595.6,-655.3 -1341.6,-637.9M-1341.6,-637.9 -1294.9,-635.9M-1294.9,-635.9 -1276.6,-628.3M-1276.6,-628.3 -1259,-611.2M-1259,-611.2 -1240.4,-591.4M-1240.4,-591.4 -1235.9,-585.8M-1235.9,-585.8 -1151.9,-478.8M-3304.2,-1011.2 -3304.5,-992M-3304.5,-992 -3305.3,-969.9M-3305.3,-969.9 -3305.6,-951M-3305.6,-951 -3306.4,-930.9M-3306.4,-930.9 -3313.5,-891M-3313.5,-891 -3358.1,-710.9M-3358.1,-710.9 -3362.5,-682.1M-3362.5,-682.1 -3360.8,-662.4M-3360.8,-662.4 -3355.2,-646.4M-3355.2,-646.4 -3347.8,-633.6M-3347.8,-633.6 -3337,-619.1M-3337,-619.1 -3326.4,-610.2M-3326.4,-610.2 -3312,-601.5M-3312,-601.5 -3300.9,-598.2M-3300.9,-598.2 -3284.9,-596.2M-3284.9,-596.2 -3205.2,-605.4M-3205.2,-605.4 -3071.3,-623.2M-3071.3,-623.2 -2886.4,-644.8M-2886.4,-644.8 -2748.5,-661.9M-2748.5,-661.9 -2591.4,-683.6M-1113.7,-439.1 -1073.4,-379.6M-834.7,-327.4 -797,-313.2M-797,-313.2 -737.8,-284.5M-737.8,-284.5 -706.5,-274.6M-706.5,-274.6 -628.9,-257M-628.9,-257 -610.6,-253.6M-610.6,-253.6 -584.8,-248.3M-584.8,-248.3 -556.8,-242.7M-556.8,-242.7 -506.9,-237.2M-506.9,-237.2 -485.4,-238.4M-485.4,-238.4 -464.8,-243M-464.8,-243 -457.8,-245.4M-457.8,-245.4 -399.4,-263.6M-399.4,-263.6 -384.5,-267.9M-384.5,-267.9 -369.2,-271.3M-369.2,-271.3 -351.2,-272.4M-351.2,-272.4 -332.9,-270.2M-332.9,-270.2 -291.6,-255.9M-291.6,-255.9 -253.5,-241.1M-253.5,-241.1 -238,-235M-238,-235 -223.9,-229.5M-223.9,-229.5 -209.1,-222.6M-209.1,-222.6 -184.3,-210.8M-184.3,-210.8 -165.8,-202.4M-165.8,-202.4 -151.7,-196M-151.7,-196 -111.7,-177.8M-111.7,-177.8 -76.8,-157.3M-76.8,-157.3 -51.3,-148.8M-51.3,-148.8 -37.8,-128.8M-37.8,-128.8 -29.2,-115.7M-29.2,-115.7 61.5,30.6 116.4,140 163.3,209.6 169.2,236.5 164.5,258.3 126.1,292.4 119.7,305.2 120.8,410.6M9730.4,5993.2 9714.9,5990.7M9714.9,5990.7 9699.8,5984.3M9699.8,5984.3 9685.8,5975.7M9685.8,5975.7 9674.2,5965.9M9674.2,5965.9 9666.7,5949.6M9666.7,5949.6 9663.1,5934.1M9663.1,5934.1 9659.6,5913.9M9659.6,5913.9 9658.3,5906.6M9658.3,5906.6 9656.6,5895.8M9656.6,5895.8 9660,5871.4M9660,5871.4 9670.3,5852.3M9670.3,5852.3 9683.7,5833.2M9683.7,5833.2 9705.2,5808.1M9705.2,5808.1 9729.7,5786.6M9729.7,5786.6 9740.2,5771.1M9740.2,5771.1 9743.8,5760.4M9743.8,5760.4 9744.5,5749.4M9744.5,5749.4 9743.8,5739.8M9743.8,5739.8 9736,5720.2M9736,5720.2 9732.5,5709.7M9732.5,5709.7 9731.7,5677.5M9731.7,5677.5 9727.1,5625.5M9727.1,5625.5 9717.5,5608.9M9717.5,5608.9 9709.3,5603.1M9709.3,5603.1 9690.4,5596.9M9690.4,5596.9 9673.3,5587.5M9673.3,5587.5 9662.3,5577.9M9662.3,5577.9 9659.6,5558.2M9659.6,5558.2 9661.4,5536.8M9661.4,5536.8 9668.3,5524.1M9668.3,5524.1 9675.9,5517.8M9675.9,5517.8 9686.3,5503.9M9686.3,5503.9 9693.4,5484.1M9693.4,5484.1 9697.4,5466.5M9697.4,5466.5 9699.2,5447.3M9699.2,5447.3 9700.1,5426.9M9700.1,5426.9 9700.3,5412.4M9700.3,5412.4 9695.6,5402.8M9695.6,5402.8 9689.9,5395.5M9689.9,5395.5 9679.6,5387M9679.6,5387 9669.1,5382.3M9669.1,5382.3 9652.2,5376.6M9652.2,5376.6 9614.6,5378.5M9614.6,5378.5 9601.7,5375.4M9601.7,5375.4 9592.4,5369.7M9592.4,5369.7 9584.9,5360.6M9584.9,5360.6 9574.6,5346.7M9574.6,5346.7 9548,5321.6M9548,5321.6 9538.1,5311.4M9538.1,5311.4 9502.7,5275.3M9502.7,5275.3 9491.7,5256.7M9491.7,5256.7 9486.5,5237M9486.5,5237 9470,5194.9M9470,5194.9 9449.6,5177.8M9449.6,5177.8 9435.1,5168.9M9435.1,5168.9 9416.7,5160.3M47.4,439.3 1.4,505.1 -23.4,524 -61.8,544M-2032.4,110.8 -2067.9,134.7M-2067.9,134.7 -2092.7,145.7M-2092.7,145.7 -2115.2,150.1M-2115.2,150.1 -2141.6,145.2M-2141.6,145.2 -2154.7,139.4M-2154.7,139.4 -2173,130.9M-2173,130.9 -2197.7,118.2M-2197.7,118.2 -2199.4,117.5M-2199.4,117.5 -2216.7,110.4M5266.6,3563.8 5251.5,3547.4M5251.5,3547.4 5233.6,3537M5233.6,3537 5191.1,3521.3M5191.1,3521.3 5166.6,3496.4M5166.6,3496.4 5155.9,3479.4M5155.9,3479.4 5103.2,3374.7M5103.2,3374.7 5097.3,3363.7M5097.3,3363.7 5093.1,3357.3M5093.1,3357.3 5081.4,3343.5M5081.4,3343.5 5072.1,3334.5M5072.1,3334.5 5048,3317M5048,3317 5036.2,3313.4M5036.2,3313.4 5029.2,3313.1M5029.2,3313.1 5017,3311.2M5017,3311.2 5005,3311.8M5005,3311.8 4980.4,3321.1M4980.4,3321.1 4923.3,3331.6M4923.3,3331.6 4895.8,3332.5M4895.8,3332.5 4878.2,3333.7M4878.2,3333.7 4849.4,3332.2M4849.4,3332.2 4837.1,3331.8M4837.1,3331.8 4776.8,3320.4M4776.8,3320.4 4744.1,3313.2M4744.1,3313.2 4702.6,3301.8M4702.6,3301.8 4692.4,3296.9M4692.4,3296.9 4621.8,3263.4M4621.8,3263.4 4585.4,3250M4585.4,3250 4546.9,3241.6M4546.9,3241.6 4482.8,3229M4482.8,3229 4458.6,3227M4458.6,3227 4418.2,3226M4418.2,3226 4406,3225.6M4406,3225.6 4388.2,3227.2M4388.2,3227.2 4371.1,3229.7M4371.1,3229.7 4346.4,3240M4346.4,3240 4340.7,3242.9M4340.7,3242.9 4324.9,3253.7M4324.9,3253.7 4272.8,3287.5M4272.8,3287.5 4230,3320.5M4230,3320.5 4186.2,3339.4M4186.2,3339.4 4154.6,3345.9M4154.6,3345.9 4126.4,3347.5M4126.4,3347.5 4097.7,3342.7M4097.7,3342.7 4053.5,3329M4053.5,3329 4013.8,3305.6M4013.8,3305.6 3987.6,3284.8M3987.6,3284.8 3978.8,3270.6M3978.8,3270.6 3972.7,3257.3M3972.7,3257.3 3957.8,3215.4M3957.8,3215.4 3949.1,3197.1M3949.1,3197.1 3934.9,3176.9M3934.9,3176.9 3908,3153.6M3908,3153.6 3903.2,3149.7M3903.2,3149.7 3877.4,3136.3M3877.4,3136.3 3860.9,3128.1M3860.9,3128.1 3843.7,3125.5M3843.7,3125.5 3808.8,3123.7M3808.8,3123.7 3789.7,3118.1M3789.7,3118.1 3773.5,3108.4M3773.5,3108.4 3743.7,3080.7M3743.7,3080.7 3730.3,3068.1M3730.3,3068.1 3677.3,3030.9M3677.3,3030.9 3622.8,3000.5M3622.8,3000.5 3562.9,2969.5M3562.9,2969.5 3555.5,2964.7M3555.5,2964.7 3518.7,2937.8M3518.7,2937.8 3499.9,2921.4M3499.9,2921.4 3486.3,2906.3M3486.3,2906.3 3476.1,2892.5M3476.1,2892.5 3466.9,2875.2M3466.9,2875.2 3458.4,2857.6M3458.4,2857.6 3438.2,2802.7M3438.2,2802.7 3422.7,2759.5M3422.7,2759.5 3400.8,2700M3400.8,2700 3392.7,2684.4M3392.7,2684.4 3369.6,2657.5M3369.6,2657.5 3361.3,2648.2M9177.7,4896.2 9171.8,4894.4M9171.8,4894.4 9161.6,4888.2M9161.6,4888.2 9146.9,4879.4M9146.9,4879.4 9134.4,4864.1M9134.4,4864.1 9123.8,4844.7M9123.8,4844.7 9115.2,4837.7M9115.2,4837.7 9100.9,4830.8M9100.9,4830.8 9085.1,4826M9085.1,4826 9077.4,4821.8M9077.4,4821.8 9067.9,4813.8M9067.9,4813.8 9061.9,4802.1M9061.9,4802.1 9060,4793.8M9060,4793.8 9054.5,4770M9054.5,4770 9053,4759.3M9053,4759.3 9050.8,4739.2M9050.8,4739.2 9045,4714.9M9045,4714.9 9039.3,4703.7M9039.3,4703.7 9040.5,4695.4M1162.3,767.3 1137.7,761.9M1137.7,761.9 1124.7,759.5M-1122.9,-432 -1073.4,-379.6M-252.7,652.5 -267.2,654.8M-267.2,654.8 -282,653.9M-282,653.9 -307.3,648.9M-307.3,648.9 -325.2,640.7M-325.2,640.7 -334.8,636.3M-334.8,636.3 -370.8,605.8M-370.8,605.8 -377.1,600M-377.1,600 -412.9,568M-412.9,568 -425.8,554.3M-425.8,554.3 -443.5,532.2M-443.5,532.2 -450.3,523.5M-450.3,523.5 -475.6,486.1M-475.6,486.1 -491.9,471.9M-491.9,471.9 -509.7,458M-509.7,458 -537.8,437.1M-537.8,437.1 -553.8,429.1M-553.8,429.1 -571.9,423.9M-571.9,423.9 -606,418.4M-606,418.4 -637.9,419.5M-637.9,419.5 -654.1,422.2M-654.1,422.2 -659.3,423.3M-659.3,423.3 -669.1,424.8M-669.1,424.8 -674.3,425.7M5464.4,3595.3 5466.1,3583M5466.1,3583 5466.6,3572.7M5466.6,3572.7 5465.5,3534M5465.5,3534 5459.3,3505.4M5459.3,3505.4 5446.8,3476.2M5446.8,3476.2 5402.8,3444.1M5402.8,3444.1 5394.5,3438.4M5394.5,3438.4 5387.8,3436M5387.8,3436 5369.7,3436.1M5369.7,3436.1 5353.6,3436.3M5353.6,3436.3 5320.3,3440.4M5320.3,3440.4 5313.4,3443.3M5313.4,3443.3 5310.2,3445.4M5310.2,3445.4 5307.5,3448.1M5307.5,3448.1 5304.9,3458.2M5304.9,3458.2 5303.1,3467.6M5303.1,3467.6 5303,3479.2M5303,3479.2 5304.8,3492.2M5304.8,3492.2 5332,3549.9M-2216.7,110.4 -2241.8,115.2M-2241.8,115.2 -2286.9,128.2M-2286.9,128.2 -2320,137.9M-2320,137.9 -2333.4,142M-2333.4,142 -2382.4,155.1M-2382.4,155.1 -2406,156.3M-1838.7,177.3 -1850.9,149.6M-1850.9,149.6 -1857.8,132.7M-1857.8,132.7 -1861,121.3M-1861,121.3 -1865.2,114.4M-1865.2,114.4 -1880,96.8M-1880,96.8 -1902.6,88.6M-1902.6,88.6 -1930.3,90.3M-1930.3,90.3 -1957.3,92.3M-1957.3,92.3 -1989.8,99.5M-1989.8,99.5 -2032.4,110.8M2819.4,1788.3 2800.7,1772.1M2800.7,1772.1 2770.3,1747.3M2770.3,1747.3 2768.8,1746.1M2768.8,1746.1 2754.4,1738.5M2754.4,1738.5 2721.1,1724.6M2721.1,1724.6 2681.5,1711.4M2681.5,1711.4 2592,1661.9M2592,1661.9 2493.4,1592.8M2493.4,1592.8 2473.7,1576.8M2473.7,1576.8 2466.5,1571.1M2466.5,1571.1 2448.7,1556.9M2448.7,1556.9 2436.1,1546.7M2436.1,1546.7 2390.5,1513.7M2390.5,1513.7 2333.2,1478.9M2333.2,1478.9 2278.5,1449.2M2278.5,1449.2 2253.1,1443.4M2253.1,1443.4 2218.1,1426.3M2218.1,1426.3 2156.6,1396.2M2156.6,1396.2 2101.6,1369.3M2101.6,1369.3 2005.1,1309.6M5312.1,3554.2 5310.8,3554.5M5310.8,3554.5 5303.8,3556M5303.8,3556 5295.1,3556.4M5295.1,3556.4 5266.6,3563.8M1069.4,752.1 1057.1,751.3M1057.1,751.3 1033.5,749.9M1033.5,749.9 1013.8,744.8M1013.8,744.8 993.3,730.7M993.3,730.7 978.7,716.3M978.7,716.3 964.5,701M964.5,701 832.4,500.2 809.2,481.2 721.8,447.9 620,434.8 534,446.4 434.9,531.7 377.2,560.9 341.4,572.4 309.5,574.1 275.6,566.4 237.9,539 223.6,479.6 199.4,445.4 154.3,417.3 120.8,410.6M-1151.9,-478.8 -1130.4,-461.3M-1139.6,-454.5 -1122.9,-432M-1130.4,-461.3 -1113.7,-439.1M-1151.9,-478.8 -1139.6,-454.5M2005.1,1309.6 1988.5,1299.1M1988.5,1299.1 1829.6,1191.8M1829.6,1191.8 1787.7,1158.1M1787.7,1158.1 1733.4,1113.7M1733.4,1113.7 1675.3,1065.3M1675.3,1065.3 1583.8,996.3M1583.8,996.3 1568.9,984.6M1568.9,984.6 1500.2,919.3M1500.2,919.3 1498.4,917.5M1498.4,917.5 1496.4,915.6M1496.4,915.6 1465.5,886.1M1465.5,886.1 1426.2,860.5M1426.2,860.5 1414.1,851.6M1414.1,851.6 1300.4,786M1300.4,786 1289.9,781.9M1289.9,781.9 1244.8,764.5M1244.8,764.5 1192.3,764.7M1192.3,764.7 1183,765.5M1183,765.5 1162.3,767.3M-2406,156.3 -2433.2,157.3M-2433.2,157.3 -2452.6,155.7M-2452.6,155.7 -2467.3,154.5M-2467.3,154.5 -2479.6,153.9M-2479.6,153.9 -2511.9,152.3M-2511.9,152.3 -2531.7,151.8M-2531.7,151.8 -2540.1,152.4M-2540.1,152.4 -2569,155.7M-2569,155.7 -2603.4,159.1M-2603.4,159.1 -2629.8,163.4M-2629.8,163.4 -2640.2,165.3M-2640.2,165.3 -2659.4,170.5M-2659.4,170.5 -2702.9,185.2M-2702.9,185.2 -2740.8,201.3M-2740.8,201.3 -2784.8,217.2M-2784.8,217.2 -2799.9,221.4M-2799.9,221.4 -2815.6,223.8M-2815.6,223.8 -2849.7,226.4M-2849.7,226.4 -2897.6,228.2M-2897.6,228.2 -2944.7,227.2M-2944.7,227.2 -2971.5,224.9M-2971.5,224.9 -2995.1,221M-2995.1,221 -3008.8,217.8M-3008.8,217.8 -3024.6,212.2M-3024.6,212.2 -3048.9,201.3M-3048.9,201.3 -3068.3,189M-3068.3,189 -3078.6,182M-3078.6,182 -3110,160.6M-3110,160.6 -3160.2,121M-3160.2,121 -3200.7,88M-3200.7,88 -3207.9,82.4M-3207.9,82.4 -3214.6,77.4M-3214.6,77.4 -3271.7,34.6M-3271.7,34.6 -3317.4,1.6M-3317.4,1.6 -3336.2,-11.2M-3336.2,-11.2 -3357.7,-21.2M-3357.7,-21.2 -3377.2,-28.3M-3377.2,-28.3 -3483.5,-63.3M-3483.5,-63.3 -3492.9,-66.1M-3492.9,-66.1 -3558,-84M-3558,-84 -3626.6,-102.9M-3626.6,-102.9 -3742.8,-127.3M-3742.8,-127.3 -3804.3,-138.7M-3804.3,-138.7 -3816.6,-140.4M-3816.6,-140.4 -3844.9,-144.2M-3844.9,-144.2 -3877.7,-148.3M-3877.7,-148.3 -3941.3,-155.2M-3941.3,-155.2 -3974.3,-155.3M-3974.3,-155.3 -4002.3,-153.9M-4002.3,-153.9 -4020.5,-152M-4020.5,-152 -4045,-147.9M-4045,-147.9 -4067.3,-142.8M-4067.3,-142.8 -4073.6,-141.8M-4073.6,-141.8 -4080.1,-138.4M-4080.1,-138.4 -4089.1,-133.5M-4089.1,-133.5 -4108.7,-118.2M1192.3,764.7 1186.6,773.1M1186.6,773.1 1184.6,775.2M1184.6,775.2 1182.1,776.2M1182.1,776.2 1168.8,780.8M1168.8,780.8 1159.7,783.1M995.3,752.6 988.5,746.9M988.5,746.9 976.6,735.5M976.6,735.5 974.4,732.8M974.4,732.8 972,729.4M972,729.4 964.5,701M1044,765 1016.4,762.4M1016.4,762.4 1010.1,760.1M1010.1,760.1 1003.3,757.1M1003.3,757.1 998.1,754.6M998.1,754.6 995.3,752.6M1159.7,783.1 1123.8,778.6M1123.8,778.6 1094,772.7M1094,772.7 1044,765M9416.7,5160.3 9398.5,5149.6M9398.5,5149.6 9386,5105.8M9386,5105.8 9332.8,5018.6M9332.8,5018.6 9308.8,4975.2M9308.8,4975.2 9295.1,4952.5M9295.1,4952.5 9285.4,4929.5M9285.4,4929.5 9283.4,4912M9283.4,4912 9283.8,4892.7M9283.8,4892.7 9292.6,4867M9292.6,4867 9319.4,4807.2M9319.4,4807.2 9329.4,4796.3M9329.4,4796.3 9337.9,4788.6M9337.9,4788.6 9349.4,4779.9M3361.3,2648.2 3315.3,2572.3M3315.3,2572.3 3302.1,2533.5M3302.1,2533.5 3290.9,2501.3M3290.9,2501.3 3283.7,2461.8M3283.7,2461.8 3283.5,2421M3283.5,2421 3303.3,2321.7M3303.3,2321.7 3306,2280.1M3306,2280.1 3302.7,2197.7M3302.7,2197.7 3298.8,2172.3M3298.8,2172.3 3285.2,2095.5M3285.2,2095.5 3254.4,1990.3M3254.4,1990.3 3248.4,1977.5M3248.4,1977.5 3213.2,1921.8M3213.2,1921.8 3200.7,1906M3200.7,1906 3158,1873.2M3158,1873.2 3120.9,1859.8M3120.9,1859.8 3088,1855.3M3088,1855.3 3066,1857.9M3066,1857.9 3042.6,1863.9M3042.6,1863.9 3017.4,1871.2M3017.4,1871.2 2991.9,1879.5M2991.9,1879.5 2959.7,1885.5M2959.7,1885.5 2919.2,1879.4M2919.2,1879.4 2889.3,1867.7M2889.3,1867.7 2875.2,1856.6M2875.2,1856.6 2863.6,1843.6M2863.6,1843.6 2854.1,1830.9M2854.1,1830.9 2834.4,1804.5M2834.4,1804.5 2819.4,1788.3M1068.3,760 1055.7,758.5M1055.7,758.5 1033.5,749.9M1162.3,767.3 1137,769.6M1137,769.6 1123.6,767.5M-1073.4,-379.6 -1058.9,-366.9M-1058.9,-366.9 -1044.4,-357.7M-1044.4,-357.7 -1014.1,-341M-2742.6,82.2 -2749.3,85.5M-2749.3,85.5 -2761.2,100.5M-2761.2,100.5 -2781.4,118M-2781.4,118 -2799.7,132.2M-2799.7,132.2 -2812.6,138.3M-2812.6,138.3 -2819.2,136.1M-2819.2,136.1 -2828.3,122.9M-2828.3,122.9 -2835.3,112.7M-2835.3,112.7 -2846.5,113.6M-2846.5,113.6 -2859.6,121.5M-2859.6,121.5 -2864.2,137.5M-2864.2,137.5 -2864.2,161.3M-2864.2,161.3 -2864.3,163.4M-2864.3,163.4 -2863.8,173.6M-2863.8,173.6 -2862.1,184.7M-2862.1,184.7 -2862.4,210.2M-2862.4,210.2 -2862.5,221.7M-3177,-157.4 -3184.8,-160.6M-3184.8,-160.6 -3189.6,-165.4M-3189.6,-165.4 -3199.1,-173.3M-3199.1,-173.3 -3204.6,-174.4M-3204.6,-174.4 -3211.3,-175.6M-3211.3,-175.6 -3217.5,-174.9M-3217.5,-174.9 -3221.7,-173.4M-3221.7,-173.4 -3268.9,-140.7M-3268.9,-140.7 -3308,-120.5M-3308,-120.5 -3340.7,-109.4M-3340.7,-109.4 -3483.5,-63.3M-1032.1,378.5 -1046.6,364.6M-1046.6,364.6 -1061.4,353.9M-1061.4,353.9 -1068.9,349.7M-1068.9,349.7 -1075.3,346.3M-1075.3,346.3 -1084.9,342M-1084.9,342 -1093.7,338.6M-1093.7,338.6 -1107.9,334.4M-1107.9,334.4 -1117.8,332.1M-1117.8,332.1 -1130.3,331.3M-1130.3,331.3 -1140.8,332M-1140.8,332 -1159.7,334.5M-1159.7,334.5 -1176.8,337.7M-1176.8,337.7 -1184.1,339.8M-1184.1,339.8 -1190.6,341.8M-1190.6,341.8 -1200.4,345.5M-1200.4,345.5 -1210,351M-1210,351 -1218.2,356.5M-1218.2,356.5 -1224.6,361.9M-1224.6,361.9 -1234,370.9M-1234,370.9 -1238.8,376.7M-1238.8,376.7 -1244.4,384.7M-1244.4,384.7 -1249.1,392.6M-1249.1,392.6 -1252.5,400.8M-1252.5,400.8 -1255.2,408.4M-1255.2,408.4 -1257.3,419.4M-1257.3,419.4 -1259,430M-1259,430 -1264.5,476.5M-1264.5,476.5 -1272.1,491.1M-1272.1,491.1 -1286.9,513.3M-1286.9,513.3 -1300.5,526.8M-1300.5,526.8 -1305.3,531.2M-1305.3,531.2 -1316.6,533.9M-1316.6,533.9 -1338.4,533.1M-1338.4,533.1 -1350.6,528.8M-1350.6,528.8 -1358.8,525.5M-1358.8,525.5 -1367.6,521.6M-1367.6,521.6 -1397.9,511.3M-1397.9,511.3 -1413.8,508.7M-1413.8,508.7 -1421.9,508.3M-1421.9,508.3 -1456.9,510.2M-1456.9,510.2 -1487,513M-1487,513 -1516.1,516M-1516.1,516 -1533.7,517.2M-1533.7,517.2 -1549,515.2M-1549,515.2 -1560.6,513.1M-1560.6,513.1 -1571.4,509.5M-1571.4,509.5 -1580.4,505.3M-1580.4,505.3 -1596.6,495.7M-1596.6,495.7 -1629.2,478.1M-1629.2,478.1 -1651.7,470.9M-1651.7,470.9 -1661.2,468.7M-1661.2,468.7 -1677,466.2M-1677,466.2 -1692.8,464.2M-1692.8,464.2 -1716.7,462M-1716.7,462 -1727.6,460M-1727.6,460 -1740.9,457.5M-1740.9,457.5 -1757.5,452.4M-1757.5,452.4 -1766.8,448.7M-1766.8,448.7 -1778.4,442.5M-1778.4,442.5 -1785.7,436.3M-1785.7,436.3 -1791.8,428M-1791.8,428 -1797.2,417.6M-1797.2,417.6 -1801.9,402.9M-1801.9,402.9 -1805.4,389M-1805.4,389 -1810.7,328.4M-1810.7,328.4 -1818.4,261.9M-1818.4,261.9 -1832.9,196.4M-1832.9,196.4 -1838.7,177.3M-990.4,423.7 -996.3,415.9M-996.3,415.9 -1016.3,393.6M-1016.3,393.6 -1032.1,378.5M-832.2,654.3 -837.4,658.6M-837.4,658.6 -847.1,664.1M-847.1,664.1 -862.2,668.9M-862.2,668.9 -878.4,670.4M-878.4,670.4 -892.7,669.2M-892.7,669.2 -899.9,667.6M-899.9,667.6 -906.4,665.4M-906.4,665.4 -917.7,660.2M-917.7,660.2 -929.5,653.7M-929.5,653.7 -939.9,645.2M-939.9,645.2 -948.8,635.7M-948.8,635.7 -956.6,625.9M-956.6,625.9 -963.2,616.5M-963.2,616.5 -967.1,608.3M-967.1,608.3 -969.6,600.6M-969.6,600.6 -971.4,593.9M-971.4,593.9 -973.2,585.5M-973.2,585.5 -974.2,577.1M-974.2,577.1 -974,569.4M-974,569.4 -973,561.4M-973,561.4 -964.8,515.8M-964.8,515.8 -963.8,506.7M-963.8,506.7 -963.6,497M-963.6,497 -964.2,488.6M-964.2,488.6 -965.2,480.6M-965.2,480.6 -966.8,471.7M-966.8,471.7 -969.7,461.8M-969.7,461.8 -972.4,453.6M-972.4,453.6 -975.6,446.3M-975.6,446.3 -979.5,438.9M-979.5,438.9 -984.5,431.6M-984.5,431.6 -990.4,423.7M-799.9,618.8 -822.3,646.2M-822.3,646.2 -832.2,654.3M-757.8,565.1 -763.4,571.9M-763.4,571.9 -799.9,618.8M-699.9,440.1 -705,445.2M-705,445.2 -712.7,453.9M-712.7,453.9 -718.5,463.6M-718.5,463.6 -721.7,476.6M-721.7,476.6 -725.8,497.8M-725.8,497.8 -731,516.1M-731,516.1 -738.2,534.1M-738.2,534.1 -752.2,558.2M-752.2,558.2 -757.8,565.1M-674.3,425.7 -683.2,428.6M-683.2,428.6 -692.5,434.1M-692.5,434.1 -699.9,440.1M-61.8,544 -124.1,569.3M-124.1,569.3 -139.9,578.7M-139.9,578.7 -152.6,587.7M-152.6,587.7 -166.6,600.8M-166.6,600.8 -182.5,616.2M-182.5,616.2 -197.3,629.1M-197.3,629.1 -215.4,640.1M-215.4,640.1 -226.1,643.7M-226.1,643.7 -252.7,652.5M120.8,410.6 95.6,413.2M95.6,413.2 76,420.3M76,420.3 47.4,439.3"/>
             <circle class="lm" cx="49.9" cy="328.0" r="7"/><text class="lm-label" x="67.9" y="316.0" text-anchor="start">Hauptbahnhof</text><circle class="lm" cx="297.8" cy="97.3" r="7"/><text class="lm-label" x="314.8" y="103.3" text-anchor="start">Naturkundemuseum</text><circle class="lm" cx="495.5" cy="518.5" r="7"/><text class="lm-label" x="512.5" y="524.5" text-anchor="start">Friedrichstraße</text><circle class="lm" cx="893.4" cy="426.5" r="7"/><text class="lm-label" x="876.4" y="432.5" text-anchor="end">Hackescher Markt</text><circle class="lm" cx="220.6" cy="596.2" r="7"/><text class="lm-label" x="237.6" y="602.2" text-anchor="start">Reichstag</text><g class="scale" transform="translate(24,645)" aria-hidden="true"><path d="M0,-8 V0 H189.3 V-8"/><text x="94.65" y="22" text-anchor="middle">500 m</text></g>
           </g>
-          <path class="tether" d="M249.4,254.9 L767.2,288.9"/><a class="pin pin-charite" data-for="g1" href="#g1" transform="translate(201.4,254.9)"><title>1 to 3 — three research groups in the Charité Department of Psychiatry and Neurosciences, Bonhoefferweg 3</title><rect class="hit" x="-58" y="-34" width="116" height="68"/><rect class="disc" x="-46" y="-25" width="92" height="50" rx="25"/><text class="num" y="1">1&#8211;3</text></a><a class="pin pin-hu" data-for="g4" href="#g4" transform="translate(201.6,358.8)"><title>4 — Larkum Lab, HU Institut für Biologie, at Charité CrossOver, Virchowweg 6</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">4</text></a><a class="pin pin-charite" data-for="g5" href="#g5" transform="translate(257.6,358.8)"><title>5 — Schmitz Lab, Charité Neuroscience Research Center, in the same building as 4</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">5</text></a><a class="pin pin-hu" data-for="g6" href="#g6" transform="translate(412.6,246.6)"><title>6 — Decision Circuits Lab, Bernstein Center, Philippstraße 13</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">6</text></a><g transform="translate(791.2,288.9)"><title>Charité psychiatric university clinic at St. Hedwig-Krankenhaus — the clinical site of group 1, not a research group of its own</title><circle class="ring" r="19"/><circle class="ring-dot" r="5"/></g><g transform="translate(331.1,279.7) rotate(45)"><title>HU Berlin, Philippstraße 12, Haus 4 — where the BPSA talks happen</title><rect class="here" x="-13" y="-13" width="26" height="26" rx="4"/></g>
+          <path class="tether" d="M249.4,254.9 L767.2,288.9"/><a class="pin pin-charite" data-for="g1 g2 g3" href="#g1" transform="translate(201.4,254.9)"><title>1 to 3 — three research groups in the Charité Department of Psychiatry and Neurosciences, Bonhoefferweg 3</title><rect class="hit" x="-58" y="-34" width="116" height="68"/><rect class="disc" x="-46" y="-25" width="92" height="50" rx="25"/><text class="num" y="1">1&#8211;3</text></a><a class="pin pin-hu" data-for="g4" href="#g4" transform="translate(201.6,358.8)"><title>4 — Larkum Lab, HU Institut für Biologie, at Charité CrossOver, Virchowweg 6</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">4</text></a><a class="pin pin-charite" data-for="g5" href="#g5" transform="translate(257.6,358.8)"><title>5 — Schmitz Lab, Charité Neuroscience Research Center, in the same building as 4</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">5</text></a><a class="pin pin-hu" data-for="g6" href="#g6" transform="translate(412.6,246.6)"><title>6 — Decision Circuits Lab, Bernstein Center, Philippstraße 13</title><circle class="hit" r="42"/><circle class="disc" r="26"/><text class="num" y="1">6</text></a><g transform="translate(791.2,288.9)"><title>Charité psychiatric university clinic at St. Hedwig-Krankenhaus — the clinical site of group 1, not a research group of its own</title><circle class="ring" r="19"/><circle class="ring-dot" r="5"/></g><g transform="translate(331.1,279.7) rotate(45)"><title>HU Berlin, Philippstraße 12, Haus 4 — where the BPSA talks happen</title><rect class="here" x="-13" y="-13" width="26" height="26" rx="4"/></g>
         </svg>
         <figcaption>Mitte, enlarged — groups 1 to 6 sit within 600&nbsp;m of one another</figcaption>
+        <ul class="key"><li><a href="#g1"><b>1</b> Psychedelic Substances</a></li><li><a href="#g2"><b>2</b> Psychotropic Substances</a></li><li><a href="#g3"><b>3</b> Recreational Drugs</a></li><li><a href="#g4"><b>4</b> Larkum Lab</a></li><li><a href="#g5"><b>5</b> Schmitz Lab</a></li><li><a href="#g6"><b>6</b> Decision Circuits Lab</a></li></ul>
       </figure>
     </div>
 
@@ -469,7 +459,7 @@
           </h3>
         </div>
         <dl>
-          <div><dt>Who</dt><dd><b>Prof. Dr. Timo Torsten Schmidt</b> — who also sits in the Charité group (1), teaches at the Freie Universität, and is <a href="../">our speaker on 20 October 2026</a>.</dd></div>
+          <div><dt>Who</dt><dd><b>Prof. Dr. Timo Torsten Schmidt</b> — who also sits in the Charité group (1), teaches at the Freie Universität, and was <a href="../#t-tts">our speaker on 20 October 2026</a>.</dd></div>
           <div><dt>What they study</dt><dd>The measurement problem underneath all of this: how do you compare one altered state to another at all? Schmidt built the <b>Altered States Database</b>, which pulled the psychometric questionnaire data out of 165 published studies of pharmacological and non-pharmacological altered states, so that an LSD dose, a meditation retreat and a flicker lamp can finally be put on the same axes (<i>Scientific Data</i>, 2022; open data on OSF).</dd></div>
           <div><dt>Key work</dt><dd>Dose–response relationships for psilocybin's subjective effects, built from that database. Classification schemes of altered states (2025). And the drug-free arm of the same question, run with Till Nierhaus and Ioanna Amaya at the Freie Universität: <b>stroboscopic light as a route into visual hallucinations</b>, where thalamocortical coupling scales with how intense the phenomena get (<i>Imaging Neuroscience</i>, 2023; <i>Network Neuroscience</i>, 2025). The 2015 paper with Majić and Gallinat on peak experiences and the afterglow, which asked early whether the therapeutic effect depends on the experience — still one of the field's open questions. Plus the <b>Altered Xperience</b> citizen-science project.</dd></div>
           <div><dt>How to get in</dt><dd class="get">The database is <b>open</b>. If you want to do psychedelic research in Berlin this week rather than next year, the honest answer is to download the ASDB and ask it something nobody has asked it yet. For the longer route, Schmidt coordinates the FU's <b>M.Sc. Cognitive Neuroscience</b> — the most direct degree into altered-states research in this city.</dd></div>
@@ -523,21 +513,22 @@
     if (!pins.length) return;
 
     function pinsFor(id) {
-      return document.querySelectorAll('.pin[data-for="' + id + '"]');
+      return document.querySelectorAll('.pin[data-for~="' + id + '"]');
     }
     function mark(nodes, on) {
       Array.prototype.forEach.call(nodes, function (n) { n.classList.toggle("is-hot", on); });
     }
 
     Array.prototype.forEach.call(pins, function (pin) {
-      var id = pin.dataset.for;
-      var card = document.getElementById(id);
-      if (!card) return;
+      // Eine Nadel kann für mehrere Gruppen stehen (1–3, 7–8).
+      var cards = pin.dataset.for.split(" ").map(function (id) { return document.getElementById(id); })
+        .filter(Boolean);
+      if (!cards.length) return;
       ["mouseenter", "focus"].forEach(function (e) {
-        pin.addEventListener(e, function () { card.classList.add("is-hot"); });
+        pin.addEventListener(e, function () { mark(cards, true); });
       });
       ["mouseleave", "blur"].forEach(function (e) {
-        pin.addEventListener(e, function () { card.classList.remove("is-hot"); });
+        pin.addEventListener(e, function () { mark(cards, false); });
       });
     });
 

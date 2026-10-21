@@ -15,14 +15,14 @@
       event: "kontakt-gesendet"
     },
     en: {
-      over: "Over – the next date follows soon", live: "Happening now",
+      over: "This talk has ended – next date coming soon", live: "Happening now",
       today: "Today", tomorrow: "Tomorrow", inDays: function (n) { return "In " + n + " days"; },
       toLight: "Light theme", toDark: "Dark theme",
       name: "What should we call you?",
       email: "Please enter an email address we can reply to.",
       message: "Tell us briefly what it’s about.",
-      subject: "BPSA Kontakt (EN): ", sending: "Sending …",
-      sent: "Thanks! Your message arrived – we’ll get back to you.",
+      subject: "BPSA Kontakt (EN): ", sending: "Sending…",
+      sent: "Thanks! We got your message and will get back to you.",
       failed: 'Sorry, that didn’t work. Feel free to email us directly at <a href="mailto:bpsa@psng.info">bpsa@psng.info</a>.',
       event: "en-kontakt-gesendet"
     }
@@ -45,7 +45,7 @@
       button.setAttribute("aria-label", light ? T.toDark : T.toLight);
       button.title = button.getAttribute("aria-label");
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.content = light ? "#f6f4fc" : "#0a0f2e";
+      if (meta) meta.content = light ? "#f6f7fa" : "#0a0f2e";
     }
     button.hidden = false;
     button.addEventListener("click", function () {
@@ -282,6 +282,13 @@
       view.removeAttribute("src");
     });
   })();
+
+  // Sprachwechsel bleibt im selben Abschnitt: Beide Seiten haben dieselben IDs.
+  document.querySelectorAll("a[hreflang]").forEach(function (link) {
+    link.addEventListener("click", function () {
+      if (location.hash) link.href = link.href.split("#")[0] + location.hash;
+    });
+  });
 
   // Kontaktformular: abschicken ohne die Seite zu verlassen. Ohne JavaScript
   // geht das Formular ganz normal an Formspree und prüft der Browser selbst.
