@@ -193,6 +193,16 @@ h2.section{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.8vw,4
   max-width:none;width:fit-content;
 }
 .hero .lede{font-size:clamp(16px,2vw,21px);color:var(--muted);max-width:46ch;line-height:1.5}
+/* Gegenstück zum BPSA-Chip im Hero von psng.info: zeigt, dass die BPSA der
+   Berliner Teil eines bundesweiten Netzwerks ist. */
+.net-chip{
+  display:inline-flex;align-items:center;gap:8px;width:fit-content;
+  padding:4px 14px 4px 4px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--surface);color:var(--text);font-size:14px;font-weight:500;text-decoration:none;
+  transition:border-color .15s,color .15s;
+}
+.net-chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.net-chip img{width:28px;height:28px;border-radius:50%;background:#fff;flex:none}
 /* Am Telefon zählt der nächste Talk: Der Kopf rückt zusammen, damit Datum,
    Ort und der WhatsApp-Knopf im ersten Bildschirm stehen. */
 @media (max-width:700px){
