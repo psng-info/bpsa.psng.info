@@ -44,7 +44,7 @@ The Berlin Psychedelic Science Association (BPSA) is a student group with an ope
 
 ## Evidence on Hand
 - Three talks since September 2026, spanning neuroscience, psychology and philosophy: Miguel Estéfano Mora Vera (08.09.), Dr. Chris Timmermann (19.10., about 65 people in the lecture hall), Prof. Dr. Timo Torsten Schmidt (20.10., recording to follow).
-- Next talk: Dr. med. Tomislav Majić (Charité), Wednesday 04.11.2026, 19:00. Topic still to be announced.
+- Next talk: Jelena Brasanac, PhD (Charité), Thursday 03.12.2026, 18:30, hybrid. Topic and location still to be announced, no portrait yet.
 - Photos and portraits: `miguel/`, `timmermann/`, `tts/`, `majic/`. Recording thumbnails: `yt-logos-und-ekstase.webp`, `yt-tts.webp`. WhatsApp QR code: `whatsapp-qr.webp`.
 - Organizing team: Jenny, Eric, Lilia, Miguel, Lennert and Meta.
 - Not on hand, so never invent any: testimonials or quotes from attendees, member or group sizes, press coverage, sponsor or university endorsements.
