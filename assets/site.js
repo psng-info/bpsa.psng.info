@@ -3,7 +3,7 @@
 (function () {
   var TEXT = {
     de: {
-      over: "Vorbei – der nächste Termin folgt", live: "Läuft gerade",
+      over: "Vorbei", live: "Läuft gerade",
       today: "Heute", tomorrow: "Morgen", inDays: function (n) { return "In " + n + " Tagen"; },
       toLight: "Helles Design", toDark: "Dunkles Design",
       name: "Wie dürfen wir dich nennen?",
@@ -15,7 +15,7 @@
       event: "kontakt-gesendet"
     },
     en: {
-      over: "This talk has ended – next date coming soon", live: "Happening now",
+      over: "This event has ended", live: "Happening now",
       today: "Today", tomorrow: "Tomorrow", inDays: function (n) { return "In " + n + " days"; },
       toLight: "Light theme", toDark: "Dark theme",
       name: "What should we call you?",
@@ -75,9 +75,7 @@
 
   // "in 14 Tagen" statt nur eines Datums: Wie weit weg etwas ist, rechnet
   // niemand gern im Kopf. Gezählt wird in Berliner Kalendertagen.
-  (function () {
-    var label = document.querySelector("[data-countdown]");
-    if (!label) return;
+  document.querySelectorAll("[data-countdown]").forEach(function (label) {
     var now = new Date();
     var today = Date.parse(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(now));
     var target = Date.parse(label.dataset.countdown.slice(0, 10));
@@ -89,7 +87,7 @@
     else if (days === 0) label.textContent = T.today;
     else if (days === 1) label.textContent = T.tomorrow;
     else if (days > 1) label.textContent = T.inDays(days);
-  })();
+  });
 
   // Termin in den eigenen Kalender: Google kennt eine Adresse dafür, Apple
   // und alle anderen nehmen eine ICS-Datei. Die Zeiten stehen als Ortszeit im

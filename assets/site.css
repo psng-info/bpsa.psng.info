@@ -242,6 +242,8 @@ h2.section{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.8vw,4
   margin-top:8px;border:1px solid var(--line);border-radius:calc(var(--r) + 6px);
   background:var(--surface);box-shadow:var(--shadow);padding:clamp(18px,3.2vw,36px);
 }
+/* Zwei Termine hintereinander: genug Luft, damit sie als zwei Karten lesen. */
+.next + .next{margin-top:clamp(16px,2.4vw,24px)}
 .next .date b{font-size:clamp(56px,7vw,80px)}
 .next .ring{width:168px;height:168px}
 .next h3{font-size:clamp(28px,3.6vw,40px);line-height:1.12}

@@ -44,7 +44,8 @@ The Berlin Psychedelic Science Association (BPSA) is a student group with an ope
 
 ## Evidence on Hand
 - Three talks since September 2026, spanning neuroscience, psychology and philosophy: Miguel Estéfano Mora Vera (08.09.), Dr. Chris Timmermann (19.10., about 65 people in the lecture hall), Prof. Dr. Timo Torsten Schmidt (20.10., recording to follow).
-- Next talk: Jelena Brasanac, PhD (Charité), Thursday 03.12.2026, 18:30, hybrid. Topic and location still to be announced, no portrait yet.
+- Next event: film night, Thursday 19.11.2026, 19:00, Café Flora (HU Campus Nord): Hamilton's Pharmacopeia S2E4 "Wizards of DMT", then discussion. Afterwards move it from "Als Nächstes" to the Rückblick; the flyer is ready as a poster tile in `filmabend/poster.jpg` and `filmabend/poster-600.webp` (like the 20.10. talk poster).
+- Next talk: Jelena Brasanac, PhD (Charité), Thursday 03.12.2026, 18:30, "Breathing into altered states: what happens in the body during breathwork?", HU Campus Nord (room to be announced) and Zoom. No portrait yet.
 - Photos and portraits: `miguel/`, `timmermann/`, `tts/`, `majic/`. Recording thumbnails: `yt-logos-und-ekstase.webp`, `yt-tts.webp`. WhatsApp QR code: `whatsapp-qr.webp`.
 - Organizing team: Jenny, Eric, Lilia, Miguel, Lennert and Meta.
 - Not on hand, so never invent any: testimonials or quotes from attendees, member or group sizes, press coverage, sponsor or university endorsements.
