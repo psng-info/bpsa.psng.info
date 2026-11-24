@@ -5,6 +5,7 @@
     de: {
       over: "Vorbei", live: "Läuft gerade",
       today: "Heute", tomorrow: "Morgen", inDays: function (n) { return "In " + n + " Tagen"; },
+      inWeeks: function (n) { return "In " + n + " Wochen"; },
       toLight: "Helles Design", toDark: "Dunkles Design",
       name: "Wie dürfen wir dich nennen?",
       email: "Bitte eine E-Mail-Adresse, unter der wir antworten können.",
@@ -17,6 +18,7 @@
     en: {
       over: "This event has ended", live: "Happening now",
       today: "Today", tomorrow: "Tomorrow", inDays: function (n) { return "In " + n + " days"; },
+      inWeeks: function (n) { return "In " + n + " weeks"; },
       toLight: "Light theme", toDark: "Dark theme",
       name: "What should we call you?",
       email: "Please enter an email address we can reply to.",
@@ -74,7 +76,8 @@
   });
 
   // "in 14 Tagen" statt nur eines Datums: Wie weit weg etwas ist, rechnet
-  // niemand gern im Kopf. Gezählt wird in Berliner Kalendertagen.
+  // niemand gern im Kopf. Gezählt wird in Berliner Kalendertagen, ab 30 Tagen
+  // in gerundeten Wochen.
   document.querySelectorAll("[data-countdown]").forEach(function (label) {
     var now = new Date();
     var today = Date.parse(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(now));
@@ -86,6 +89,7 @@
     else if (nowWall >= label.dataset.countdown) label.textContent = T.live;
     else if (days === 0) label.textContent = T.today;
     else if (days === 1) label.textContent = T.tomorrow;
+    else if (days >= 30) label.textContent = T.inWeeks(Math.round(days / 7));
     else if (days > 1) label.textContent = T.inDays(days);
   });
 
@@ -219,6 +223,11 @@
     var box = document.querySelector(".lightbox");
     if (!box || !box.showModal) return;
     var view = box.querySelector("img");
+    // Kurze Videos (data-video) liegen in derselben Gruppe wie die Fotos.
+    var clip = document.createElement("video");
+    clip.controls = clip.muted = clip.loop = clip.playsInline = true;
+    clip.hidden = true;
+    view.after(clip);
     var prev = box.querySelector(".lb-prev");
     var next = box.querySelector(".lb-next");
     var count = box.querySelector(".lb-count");
@@ -226,13 +235,32 @@
     var at = 0;
     var opener = null;
 
+    function stop() {
+      clip.pause();
+      clip.hidden = true;
+      clip.removeAttribute("src");
+      clip.load();
+    }
+
     function show(index) {
       at = (index + group.length) % group.length;
       var source = group[at].querySelector("img");
+      var video = group[at].dataset.video;
+      stop();
+      view.hidden = !!video;
+      count.textContent = (at + 1) + " / " + group.length;
+      if (video) {
+        clip.hidden = false;
+        clip.poster = source.src;
+        clip.setAttribute("aria-label", source.alt);
+        clip.src = video;
+        var playing = clip.play();
+        if (playing) playing.catch(function () {});
+        return;
+      }
       // src ist immer das große Foto; im Raster lädt der Browser die kleine Fassung aus srcset.
       view.src = source.src;
       view.alt = source.alt;
-      count.textContent = (at + 1) + " / " + group.length;
     }
 
     document.querySelectorAll(".shot").forEach(function (shot) {
@@ -278,6 +306,7 @@
       document.documentElement.style.overflow = "";
       if (opener) opener.focus();
       view.removeAttribute("src");
+      stop();
     });
   })();
 

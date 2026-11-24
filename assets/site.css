@@ -339,6 +339,7 @@ section.block{padding-block:clamp(56px,8vw,104px) 0}
 .talk-text{display:flex;flex-direction:column;gap:12px;min-width:0}
 .talk-text p{color:var(--muted);max-width:62ch}
 .talk-text p a{color:var(--cyan)}
+.talk-text sub{line-height:0}
 .meta-line{font-size:14px;display:flex;flex-wrap:wrap;gap:4px 14px}
 @media (max-width:860px){ .talk-body{grid-template-columns:minmax(0,1fr)} }
 
@@ -388,11 +389,15 @@ section.block{padding-block:clamp(56px,8vw,104px) 0}
   position:absolute;left:8px;bottom:8px;font-size:13px;font-weight:700;
   background:rgba(10,15,46,.86);border-radius:999px;padding:3px 9px;
 }
+.shot[data-video]{cursor:pointer}
+.shot .play{position:absolute;inset:0;margin:auto;width:48px;height:48px}
+.shot .play::before{margin-left:4px;border-left-width:14px;border-top-width:9px;border-bottom-width:9px}
+.shot:hover .play{background:rgba(10,15,46,.92)}
 .shots .poster-tile img{object-position:top}
 .talk-body > .wide-row{grid-column:1/-1}
 @media (max-width:600px){ .shots{grid-template-columns:repeat(2,minmax(0,1fr))} }
 
-/* Vergangene Talks: Kopfzeile immer, Fotos und Text auf Klick – die Seite war am Telefon über 9000 px lang. */
+/* Vergangene Events: Kopfzeile immer, Fotos und Text auf Klick – die Seite war am Telefon über 9000 px lang. */
 .talk-more > summary{margin-top:-4px}
 .talk-more-body{display:flex;flex-direction:column;gap:clamp(16px,2.4vw,22px);padding-top:12px}
 
@@ -481,8 +486,10 @@ footer a:hover{text-decoration:underline}
 }
 .lightbox[open]{display:flex;flex-direction:column}
 .lightbox::backdrop{background:transparent}
-.lb-stage{flex:1;min-height:0;display:grid;place-items:center;padding:56px 12px 8px}
-.lightbox img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.7)}
+/* Feste Zeile: Ohne sie richtet sich die Höhe nach dem Bild, Hochformate liefen unten hinaus. */
+.lb-stage{flex:1;min-height:0;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);place-items:center;padding:56px 12px 8px}
+.lightbox img,.lightbox video{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.7)}
+.lb-stage > [hidden]{display:none}
 /* Die Knöpfe in einer festen Leiste: Bei hohen Fotos auf dem Telefon
    rutschte das Schließen-Kreuz sonst aus dem Bild. */
 .lb-bar{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 12px max(16px,env(safe-area-inset-bottom))}
