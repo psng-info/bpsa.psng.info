@@ -243,6 +243,8 @@ h2.section{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.8vw,4
   background:var(--surface);box-shadow:var(--shadow);padding:clamp(18px,3.2vw,36px);
 }
 /* Zwei Termine hintereinander: genug Luft, damit sie als zwei Karten lesen. */
+.no-events{color:var(--muted);padding-block:24px}
+.no-events a{color:var(--cyan)}
 .next + .next{margin-top:clamp(16px,2.4vw,24px)}
 .next .date b{font-size:clamp(56px,7vw,80px)}
 .next .ring{width:168px;height:168px}
