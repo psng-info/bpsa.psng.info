@@ -148,7 +148,7 @@ Night navy and white, with cyan as the single interactive hue and lilac for quie
 
 ### Hierarchy
 - **Wordmark** (700, clamp 28–88px, 1.05): the organisation name in the hero, solid colour. Nowhere else.
-- **Headline** (700, clamp 28–42px, 1.15): section headings ("Vergangene Talks", "Partner"), upright, one colour, no accent word. "Nächster Talk" uses the same face slightly smaller (clamp 24–32px).
+- **Headline** (700, clamp 28–42px, 1.15): section headings ("Vergangene Events", "Partner"), upright, one colour, no accent word. "Nächster Talk" uses the same face slightly smaller (clamp 24–32px).
 - **Title** (700, clamp 20–26px, 1.28): talk titles and speaker names; the next talk scales up to 40px.
 - **Body** (400, 16–17px, 1.6): prose, held to 58–68ch.
 - **Label** (700, 14–15px, sentence case): series labels, weekday and time, FAQ questions (18px), role titles (19px), countdown badge (13px).
