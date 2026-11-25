@@ -6,6 +6,7 @@
       over: "Vorbei", live: "Läuft gerade",
       today: "Heute", tomorrow: "Morgen", inDays: function (n) { return "In " + n + " Tagen"; },
       inWeeks: function (n) { return "In " + n + " Wochen"; },
+      noEvents: 'Gerade steht kein Termin fest. Neue kommen zuerst in die <a href="https://chat.whatsapp.com/FjeicaFArV1JHYoMaVckRW?mode=gi_t" target="_blank" rel="noopener">WhatsApp-Gruppe</a>.',
       toLight: "Helles Design", toDark: "Dunkles Design",
       name: "Wie dürfen wir dich nennen?",
       email: "Bitte eine E-Mail-Adresse, unter der wir antworten können.",
@@ -19,6 +20,7 @@
       over: "This event has ended", live: "Happening now",
       today: "Today", tomorrow: "Tomorrow", inDays: function (n) { return "In " + n + " days"; },
       inWeeks: function (n) { return "In " + n + " weeks"; },
+      noEvents: 'Nothing scheduled right now. New dates go to the <a href="https://chat.whatsapp.com/FjeicaFArV1JHYoMaVckRW?mode=gi_t" target="_blank" rel="noopener">WhatsApp group</a> first.',
       toLight: "Light theme", toDark: "Dark theme",
       name: "What should we call you?",
       email: "Please enter an email address we can reply to.",
@@ -77,10 +79,14 @@
 
   // "in 14 Tagen" statt nur eines Datums: Wie weit weg etwas ist, rechnet
   // niemand gern im Kopf. Gezählt wird in Berliner Kalendertagen, ab 30 Tagen
-  // in gerundeten Wochen.
+  // in gerundeten Wochen. Am Tag nach dem Termin verschwindet die Karte aus
+  // "Als Nächstes"; in den Rückblick kommt sie weiterhin von Hand.
   document.querySelectorAll("[data-countdown]").forEach(function (label) {
     var now = new Date();
-    var today = Date.parse(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(now));
+    var todayIso = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(now);
+    var card = label.closest(".next");
+    if (card && todayIso > label.dataset.until.slice(0, 10)) { card.remove(); return; }
+    var today = Date.parse(todayIso);
     var target = Date.parse(label.dataset.countdown.slice(0, 10));
     var days = Math.round((target - today) / 864e5);
     var nowWall = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin", dateStyle: "short", timeStyle: "short" })
@@ -92,6 +98,15 @@
     else if (days >= 30) label.textContent = T.inWeeks(Math.round(days / 7));
     else if (days > 1) label.textContent = T.inDays(days);
   });
+
+  (function () {
+    var section = document.getElementById("naechster-talk");
+    if (!section || section.querySelector(".next")) return;
+    var note = document.createElement("p");
+    note.className = "no-events";
+    note.innerHTML = T.noEvents;
+    section.appendChild(note);
+  })();
 
   // Termin in den eigenen Kalender: Google kennt eine Adresse dafür, Apple
   // und alle anderen nehmen eine ICS-Datei. Die Zeiten stehen als Ortszeit im
